@@ -236,7 +236,7 @@
         scrollChatToBottom();
 
         // Send to backend Gemini API
-        fetch("{{ route('api.chat') }}", {
+        fetch("{{ route('api.chat', [], false) }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
