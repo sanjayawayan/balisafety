@@ -177,7 +177,7 @@ PROMPT;
 
         $note = "";
         if (!$this->isConfigured()) {
-            $note = "\n\n💡 _Mode Hemat Token Aktif. Tambahkan `GEMINI_API_KEY` di `.env` untuk Live Gemini._";
+            $note = "\n\n💡 _Mode knowledge base aktif. Atur `GEMINI_API_KEY` di Vercel Project Settings > Environment Variables, lalu redeploy untuk mengaktifkan Gemini._";
         }
 
         return [
