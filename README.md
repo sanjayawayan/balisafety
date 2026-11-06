@@ -144,14 +144,14 @@ balisafety/
 Proyek ini memakai container Vercel dengan FrankenPHP dan PHP 8.4. Runtime container Vercel masih Beta. Database SQLite dan filesystem lokal tidak digunakan untuk data produksi.
 
 1. Push repository ke GitHub, lalu import repository tersebut ke Vercel dengan root directory proyek ini.
-2. Buat MySQL eksternal dan bucket Cloudflare R2 privat. Tambahkan environment variables berikut di Vercel:
+2. Buat MySQL eksternal. Di Vercel, buka **Storage**, buat Blob store dengan akses **Private**, lalu hubungkan store ke project untuk Production dan Preview. Vercel akan mengisi `BLOB_READ_WRITE_TOKEN` dan `BLOB_STORE_ID` secara otomatis. Lampiran dibatasi 4 MB agar sesuai batas request server-upload Vercel. Paket Hobby menyertakan 1 GB penyimpanan, 10.000 simple operations, 2.000 advanced operations, dan 10 GB transfer; jika kuota terlampaui, Blob berhenti melayani sampai kuota reset.
+  Tambahkan environment variables berikut di Vercel:
   - `APP_KEY`: hasil `php artisan key:generate --show`; simpan hanya di Vercel.
   - `APP_URL`: URL deployment produksi.
   - `DB_CONNECTION=mysql`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
-  - `FILESYSTEM_DISK=s3`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_DEFAULT_REGION=auto`, `AWS_BUCKET`, `AWS_ENDPOINT`, `AWS_USE_PATH_STYLE_ENDPOINT=true`.
   - `ADMIN_USERNAME` dan `ADMIN_PASSWORD` untuk Basic Auth pada `/admin`; gunakan password kuat.
   - `GEMINI_API_KEY` jika chatbot akan memakai Gemini.
 3. Setelah environment variables database tersedia, jalankan `php artisan migrate --force` satu kali dari environment tepercaya yang dapat terhubung ke MySQL. Jangan jalankan migrasi saat container dimulai.
-4. Deploy dari Vercel dan periksa endpoint `/up`. Lampiran disimpan privat di R2; halaman tracking publik hanya menampilkan progres laporan.
+4. Deploy dari Vercel dan periksa endpoint `/up`. Lampiran disimpan privat di Vercel Blob; halaman tracking publik hanya menampilkan progres laporan.
 
-Jangan commit `.env`, kredensial database, key R2, `APP_KEY`, atau database SQLite lokal.
+Jangan commit `.env`, kredensial database, token Vercel Blob, `APP_KEY`, atau database SQLite lokal.

@@ -126,7 +126,7 @@
                     <div class="sm:col-span-2">
                         <label class="block font-bold text-slate-700 mb-1">Foto Bukti / Dokumen Terkait (Opsional)</label>
                         <input type="file" name="attachment" accept="image/jpeg,image/png,image/jpg,image/webp" class="w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800">
-                        <p class="text-[11px] text-slate-500 mt-1">Format: JPG, PNG, WEBP. Maksimal 5 MB.</p>
+                        <p class="text-[11px] text-slate-500 mt-1">Format: JPG, PNG, WEBP. Maksimal 4 MB.</p>
                     </div>
                 </div>
             </div>

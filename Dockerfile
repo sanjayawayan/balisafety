@@ -41,7 +41,7 @@ ENV PORT=80 \
     CACHE_STORE=array \
     SESSION_DRIVER=cookie \
     QUEUE_CONNECTION=sync \
-    FILESYSTEM_DISK=s3
+    FILESYSTEM_DISK=local
 
 USER www-data
 
