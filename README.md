@@ -20,7 +20,7 @@ Platform resmi berbasis web responsif yang dirancang untuk mendukung keamanan, k
 - **Fallback Simulator Pintar:** Sistem tetap berfungsi optimal memberikan jawaban akurat meskipun API Key belum diisi atau saat offline.
 
 ### 3. 📋 Sistem Pelaporan Insiden & Pelacakan (Tracking)
-- **Formulir Pengaduan Online:** Formulir terstruktur dengan unggah bukti foto, kategori kejadian, data identitas (KTP/Paspor), dan titik lokasi.
+- **Formulir Pengaduan Online:** Formulir terstruktur dengan kategori kejadian, data identitas (KTP/Paspor), dan titik lokasi.
 - **Kode Pelacakan Unik:** Setiap laporan menerbitkan kode unik (cth: `BG-26-8841A`).
 - **Live Progress Timeline 4 Tahap:**
   1. *Laporan Masuk* &rarr; 2. *Verifikasi Petugas* &rarr; 3. *Tindakan Lapangan* &rarr; 4. *Kasus Selesai*.
@@ -141,17 +141,16 @@ balisafety/
 
 ## Deploy ke Vercel
 
-Proyek ini memakai container Vercel dengan FrankenPHP dan PHP 8.4. Runtime container Vercel masih Beta. Database SQLite dan filesystem lokal tidak digunakan untuk data produksi.
+Proyek ini memakai container Vercel dengan FrankenPHP dan PHP 8.4. Runtime container Vercel masih Beta. Untuk demo, database SQLite sementara dibuat di `/tmp` dan dimigrasikan saat container mulai. Data hanya ada pada instance tersebut dan hilang saat instance dihentikan atau diganti; database tidak dibagi antar-instance.
 
 1. Push repository ke GitHub, lalu import repository tersebut ke Vercel dengan root directory proyek ini.
-2. Buat MySQL eksternal. Di Vercel, buka **Storage**, buat Blob store dengan akses **Private**, lalu hubungkan store ke project untuk Production dan Preview. Vercel akan mengisi `BLOB_READ_WRITE_TOKEN` dan `BLOB_STORE_ID` secara otomatis. Lampiran dibatasi 4 MB agar sesuai batas request server-upload Vercel. Paket Hobby menyertakan 1 GB penyimpanan, 10.000 simple operations, 2.000 advanced operations, dan 10 GB transfer; jika kuota terlampaui, Blob berhenti melayani sampai kuota reset.
-  Tambahkan environment variables berikut di Vercel:
+2. Tambahkan environment variables berikut di Vercel:
   - `APP_KEY`: hasil `php artisan key:generate --show`; simpan hanya di Vercel.
   - `APP_URL`: URL deployment produksi.
-  - `DB_CONNECTION=mysql`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
   - `ADMIN_USERNAME` dan `ADMIN_PASSWORD` untuk Basic Auth pada `/admin`; gunakan password kuat.
   - `GEMINI_API_KEY` jika chatbot akan memakai Gemini.
-3. Setelah environment variables database tersedia, jalankan `php artisan migrate --force` satu kali dari environment tepercaya yang dapat terhubung ke MySQL. Jangan jalankan migrasi saat container dimulai.
-4. Deploy dari Vercel dan periksa endpoint `/up`. Lampiran disimpan privat di Vercel Blob; halaman tracking publik hanya menampilkan progres laporan.
+3. Deploy dari Vercel dan periksa endpoint `/up`. Fitur upload lampiran tidak tersedia.
 
-Jangan commit `.env`, kredensial database, token Vercel Blob, `APP_KEY`, atau database SQLite lokal.
+Mode SQLite sementara ini hanya untuk demo/pratinjau. Jangan gunakan untuk laporan operasional karena data dapat hilang dan berbeda antar-instance.
+
+Jangan commit `.env`, `APP_KEY`, atau database SQLite lokal.

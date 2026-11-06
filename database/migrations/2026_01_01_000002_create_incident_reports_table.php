@@ -23,7 +23,6 @@ return new class extends Migration
             $table->decimal('longitude', 10, 7)->nullable();
             $table->dateTime('incident_date');
             $table->text('description');
-            $table->string('attachment_path')->nullable();
             $table->string('status')->default('SUBMITTED'); // SUBMITTED, UNDER_INVESTIGATION, IN_ACTION, RESOLVED, REJECTED
             $table->string('priority')->default('MEDIUM'); // LOW, MEDIUM, HIGH, CRITICAL
             $table->text('officer_notes')->nullable();

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IncidentReport;
-use App\Services\VercelBlobService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class IncidentController extends Controller
 {
@@ -43,7 +41,7 @@ class IncidentController extends Controller
     /**
      * Submit and store incident report
      */
-    public function store(Request $request, VercelBlobService $blobService)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'reporter_name' => 'required|string|max:150',
@@ -58,22 +56,7 @@ class IncidentController extends Controller
             'longitude' => 'nullable|numeric',
             'incident_date' => 'required|date',
             'description' => 'required|string|min:20',
-            'attachment' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
-
-        $attachmentPath = null;
-        if ($request->hasFile('attachment')) {
-            $file = $request->file('attachment');
-            $filename = time() . '_' . Str::random(10) . '.' . $file->guessExtension();
-
-            if ($blobService->isConfigured()) {
-                $attachmentPath = $blobService->upload($file, 'reports/' . $filename);
-            } elseif (app()->environment('local')) {
-                $attachmentPath = $file->storeAs('reports', $filename, 'public');
-            } else {
-                throw new \RuntimeException('Vercel Blob is not configured.');
-            }
-        }
 
         // Assign initial agency based on category & regency
         $assignedAgency = match($validated['category']) {
@@ -98,7 +81,6 @@ class IncidentController extends Controller
             'longitude' => $validated['longitude'] ?? null,
             'incident_date' => $validated['incident_date'],
             'description' => $validated['description'],
-            'attachment_path' => $attachmentPath,
             'status' => 'SUBMITTED',
             'priority' => in_array($validated['category'], ['theft', 'harassment', 'medical']) ? 'HIGH' : 'MEDIUM',
             'assigned_agency' => $assignedAgency,

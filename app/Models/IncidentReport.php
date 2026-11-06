@@ -23,7 +23,6 @@ class IncidentReport extends Model
         'longitude',
         'incident_date',
         'description',
-        'attachment_path',
         'status',
         'priority',
         'officer_notes',

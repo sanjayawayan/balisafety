@@ -1,8 +1,7 @@
 FROM dunglas/frankenphp:1-php8.4-bookworm AS base
 
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
-    && install-php-extensions intl zip pdo_mysql \
-    && printf 'upload_max_filesize=6M\npost_max_size=8M\n' > "$PHP_INI_DIR/conf.d/uploads.ini"
+    && install-php-extensions intl zip pdo_sqlite
 
 WORKDIR /app
 
@@ -41,8 +40,10 @@ ENV PORT=80 \
     CACHE_STORE=array \
     SESSION_DRIVER=cookie \
     QUEUE_CONNECTION=sync \
-    FILESYSTEM_DISK=local
+    FILESYSTEM_DISK=local \
+    DB_CONNECTION=sqlite \
+    DB_DATABASE=/tmp/balisafety.sqlite
 
 USER www-data
 
-CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile"]
+CMD ["sh", "-c", "touch \"$DB_DATABASE\" && php artisan migrate --force && exec frankenphp run --config /etc/frankenphp/Caddyfile"]
