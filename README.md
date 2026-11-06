@@ -14,7 +14,7 @@ Platform resmi berbasis web responsif yang dirancang untuk mendukung keamanan, k
 - **Panggilan Satu Ketukan (Direct Hotlines):** 112 (Bebas Pulsa), 110 (Polisi), 118/119 (Ambulans), 115 (BASARNAS), dan Tourist Police Polda Bali (`+62 361 224111`).
 
 ### 2. 🤖 Chatbot AI Keselamatan Terintegrasi Google Gemini
-- **Ditenagai Google Gemini:** Menggunakan model `gemini-1.5-flash` melalui REST API resmi Google AI Studio.
+- **Ditenagai Google Gemini:** Menggunakan model `gemini-3.5-flash-lite` melalui REST API resmi Google AI Studio.
 - **Trained Knowledge Base Bali:** Dilengkapi pemahaman mendalam tentang tata tertib Pura (Perda Bali No. 2/2024), aturan sewa motor & helm, penanganan gigitan anjing/kera (Rabies) & faskes rujukan VAR, lokasi RS standar internasional (BIMC, Siloam, Sanglah), serta mitigasi arus laut (*rip current*).
 - **Multibahasa:** Merespons secara otomatis dalam bahasa wisatawan (Bahasa Indonesia, Inggris, Rusia, Mandarin, dll.).
 - **Fallback Simulator Pintar:** Sistem tetap berfungsi optimal memberikan jawaban akurat meskipun API Key belum diisi atau saat offline.
@@ -72,7 +72,7 @@ Untuk menghubungkan Chatbot langsung ke Google Gemini:
 2. Buka file `.env` dan masukkan API Key:
    ```env
    GEMINI_API_KEY=AIzaSy...masukkan_api_key_anda_disini...
-   GEMINI_MODEL=gemini-1.5-flash
+  GEMINI_MODEL=gemini-3.5-flash-lite
    ```
 3. Simpan file `.env`. Chatbot akan otomatis beralih ke mode **Gemini Live AI**.
 *(Jika API key dikosongkan, chatbot tetap berjalan dengan basis pengetahuan lokal BaliGuard tanpa error).*

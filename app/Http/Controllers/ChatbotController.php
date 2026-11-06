@@ -66,7 +66,7 @@ class ChatbotController extends Controller
             'session_id' => $sessionId,
             'reply' => $aiResult['message'],
             'source' => $aiResult['source'] ?? 'gemini-live',
-            'model' => $aiResult['model'] ?? 'gemini-1.5-flash',
+            'model' => $aiResult['model'] ?? 'gemini-3.5-flash-lite',
             'is_live_gemini' => $gemini->isConfigured(),
             'tokens_optimized' => true,
             'max_input_chars' => 250,
