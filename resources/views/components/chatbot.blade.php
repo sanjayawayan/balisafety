@@ -248,10 +248,10 @@
                 session_id: chatSessionId
             })
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(async res => {
+            const data = await res.json();
             showTypingIndicator(false);
-            if (data.success && data.reply) {
+            if (res.ok && data.success && data.reply) {
                 appendAssistantMessage(data.reply, data.model, data.is_live_gemini);
             } else {
                 appendAssistantMessage("Mohon maaf, sistem AI mengalami kendala sementara. Untuk keadaan darurat langsung, silakan hubungi **112** (Bebas Pulsa) atau **110** (Polisi).");
@@ -260,7 +260,10 @@
         })
         .catch(err => {
             showTypingIndicator(false);
-            appendAssistantMessage("Koneksi internet terputus. Jika Anda berada dalam situasi darurat, silakan langsung tekan tombol **SOS DARURAT** atau panggil **112**.");
+            const message = navigator.onLine
+                ? "Chatbot tidak dapat dihubungi saat ini. Silakan coba lagi. Jika darurat, panggil **112**."
+                : "Koneksi internet terputus. Jika Anda berada dalam situasi darurat, silakan langsung tekan tombol **SOS DARURAT** atau panggil **112**.";
+            appendAssistantMessage(message);
             scrollChatToBottom();
         });
     }
