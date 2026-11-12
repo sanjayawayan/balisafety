@@ -260,6 +260,6 @@ Untuk keperluan penilaian juri dan evaluasi fitur Pusat Komando & Dispatcher:
 
 ---
 
-## Team Member 1. I Putu Nayaka Widhyadana, 2. I Wayan Karang Sanjaya
+## Team Member
 1. **I Putu Nayaka Widhyadana**
 2. **I Wayan Karang Sanjaya**
