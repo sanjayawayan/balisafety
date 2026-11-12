@@ -5,7 +5,7 @@
     <div id="chatTriggerBtn" class="fixed bottom-6 right-6 z-40 hidden md:block">
         <button onclick="toggleChatbot()" class="group relative flex items-center space-x-3 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl border-2 border-amber-500/80 hover:border-amber-400 hover:scale-105 active:scale-95 transition-all">
             <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-bold shadow">
-                <i class="fa-solid fa-sparkles text-sm animate-pulse"></i>
+                <i class="fa-solid fa-wand-magic-sparkles text-sm animate-pulse"></i>
                 <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border border-slate-950 rounded-full"></span>
             </div>
             <div class="text-left hidden sm:block pr-1">
@@ -13,7 +13,7 @@
                     <span>Chatbot AI</span>
                     <span class="ml-1.5 px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px]">Gemini</span>
                 </p>
-                <p class="text-xs font-semibold text-slate-200">Tanya Keamanan Bali</p>
+                <p class="text-xs font-semibold text-slate-200">{{ __t('chat_title') }}</p>
             </div>
         </button>
     </div>
@@ -34,7 +34,7 @@
                     <div class="flex items-center space-x-2">
                         <h4 class="font-bold text-sm tracking-wide text-white">BaliGuard AI</h4>
                         <span class="text-[10px] font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-1.5 py-0.5 rounded shadow-sm">
-                            <i class="fa-solid fa-sparkles mr-1"></i>Gemini
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Gemini
                         </span>
                     </div>
                     <div class="flex items-center space-x-1.5 mt-0.5">
@@ -92,20 +92,17 @@
             <div id="quickChipsContainer" class="pt-1 space-y-1.5">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pertanyaan Cepat:</p>
                 <div class="flex flex-wrap gap-1.5">
-                    <button type="button" onclick="sendQuickPrompt('Nomor darurat polisi di Kuta & Seminyak?')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
-                        🚨 Polisi Kuta
+                    <button type="button" onclick="sendQuickPrompt('{{ addslashes(__t('prompt_hospital')) }}')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
+                        🏥 {{ __t('prompt_hospital') }}
                     </button>
-                    <button type="button" onclick="sendQuickPrompt('RS terdekat & vaksin rabies di Ubud?')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
-                        🏥 RS & Rabies Ubud
+                    <button type="button" onclick="sendQuickPrompt('{{ addslashes(__t('prompt_temple')) }}')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
+                        🛕 {{ __t('prompt_temple') }}
                     </button>
-                    <button type="button" onclick="sendQuickPrompt('Aturan sewa motor dan tilang turis di Bali?')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
-                        🛵 Sewa Motor & Helm
+                    <button type="button" onclick="sendQuickPrompt('{{ addslashes(__t('prompt_ripcurrent')) }}')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
+                        🌊 {{ __t('prompt_ripcurrent') }}
                     </button>
-                    <button type="button" onclick="sendQuickPrompt('Etika pakaian saat berkunjung ke Pura?')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
-                        🛕 Etika Pura
-                    </button>
-                    <button type="button" onclick="sendQuickPrompt('Bahaya ombak rip current dan bendera merah?')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
-                        🌊 Ombak & Pantai
+                    <button type="button" onclick="sendQuickPrompt('{{ addslashes(__t('prompt_money')) }}')" class="text-[11px] font-medium bg-white hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 border border-slate-200 text-slate-700 px-2.5 py-1.5 rounded-lg shadow-sm transition">
+                        💵 {{ __t('prompt_money') }}
                     </button>
                 </div>
             </div>
@@ -115,7 +112,7 @@
             <!-- Typing indicator (hidden by default) -->
             <div id="typingIndicator" class="hidden flex items-start space-x-2.5">
                 <div class="w-8 h-8 rounded-full bg-slate-900 text-amber-400 flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-700">
-                    <i class="fa-solid fa-sparkles text-xs animate-spin"></i>
+                    <i class="fa-solid fa-wand-magic-sparkles text-xs animate-spin"></i>
                 </div>
                 <div class="bg-white border border-slate-200 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
                     <div class="flex items-center space-x-1.5">
@@ -138,7 +135,7 @@
                             id="chatInput" 
                             rows="1" 
                             maxlength="250"
-                            placeholder="Ketik pertanyaan (maks. 250 karakter)..." 
+                            placeholder="{{ __t('chat_input_placeholder') }}" 
                             class="w-full text-xs sm:text-sm px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 focus:outline-none resize-none max-h-24 transition"
                             oninput="updateCharCounter(this)"
                             onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); handleChatSubmit(event); }"

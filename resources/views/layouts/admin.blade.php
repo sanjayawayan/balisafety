@@ -11,8 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome 6 Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome 6 Free Icons with Dual CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,14 +59,14 @@
 
                 <a href="{{ route('admin.sos.index') }}" class="flex items-center justify-between px-4 py-3 rounded-xl transition {{ request()->routeIs('admin.sos.*') ? 'bg-red-600 text-white font-bold shadow' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-bell-exclamation w-5 text-sm mr-2.5 text-red-500"></i>
+                        <i class="fa-solid fa-bell w-5 text-sm mr-2.5 text-red-500"></i>
                         <span>Live Sinyal SOS</span>
                     </div>
                     <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] font-bold px-1.5 py-0.5 rounded">24/7</span>
                 </a>
 
                 <a href="{{ route('admin.incidents.index') }}" class="flex items-center px-4 py-3 rounded-xl transition {{ request()->routeIs('admin.incidents.*') ? 'bg-amber-500 text-slate-950 font-bold shadow' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
-                    <i class="fa-solid fa-file-shield w-5 text-sm mr-2.5"></i>
+                    <i class="fa-solid fa-shield-halved w-5 text-sm mr-2.5"></i>
                     <span>Kelola Laporan Insiden</span>
                 </a>
 

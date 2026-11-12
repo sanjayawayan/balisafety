@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Language Switcher
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['id', 'en', 'zh', 'ja'], true)) {
+        session()->put('locale', $locale);
+        cookie()->queue(cookie('baliguard_locale', $locale, 60 * 24 * 365));
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 // Public Tourist Portal
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/guidelines', [HomeController::class, 'guidelines'])->name('guidelines');
@@ -23,6 +32,7 @@ Route::get('/map', [HomeController::class, 'map'])->name('map');
 Route::get('/report', [IncidentController::class, 'create'])->name('report.create');
 Route::post('/report', [IncidentController::class, 'store'])->name('report.store');
 Route::get('/track/{code?}', [IncidentController::class, 'track'])->name('report.track');
+Route::post('/api/incidents/sync', [IncidentController::class, 'syncFromClient'])->name('api.incidents.sync');
 
 // SOS & Emergency API
 Route::post('/api/sos', [SosController::class, 'trigger'])->name('api.sos.trigger');

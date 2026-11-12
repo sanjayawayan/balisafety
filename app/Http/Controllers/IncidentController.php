@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\IncidentReport;
+use App\Services\IncidentPersistenceService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -28,14 +29,14 @@ class IncidentController extends Controller
         ];
 
         $categories = [
-            'theft' => 'Pencurian / Kemalingan / Copet',
-            'scam' => 'Penipuan Wisata / Valas / Pemerasan',
-            'traffic_accident' => 'Kecelakaan Lalu Lintas / Rental Motor',
-            'medical' => 'Keadaan Darurat Medis / Rabies / Cidera',
-            'lost_document' => 'Kehilangan Paspor / Dompet / Dokumen',
-            'harassment' => 'Pelecehan / Gangguan Keamanan Asusila',
-            'property_damage' => 'Kerusakan Properti / Konflik Penginapan',
-            'other' => 'Insiden Keamanan Lainnya',
+            'theft' => 'Pencurian / Kemalingan / Copet (Theft / Robbery)',
+            'scam' => 'Penipuan Wisata / Valas / Pemerasan (Tourist Scam / Money Changer)',
+            'traffic_accident' => 'Kecelakaan Lalu Lintas / Rental Motor (Traffic Accident)',
+            'medical' => 'Keadaan Darurat Medis / Rabies / Cidera (Medical Emergency / Rabies)',
+            'lost_document' => 'Kehilangan Paspor / Dompet / Dokumen (Lost Passport / ID)',
+            'harassment' => 'Pelecehan / Gangguan Keamanan Asusila (Harassment)',
+            'property_damage' => 'Kerusakan Properti / Konflik Penginapan (Property / Hotel Dispute)',
+            'other' => 'Insiden Keamanan Lainnya (Other Incident)',
         ];
 
         return view('report.create', compact('regencies', 'categories'));
@@ -113,8 +114,39 @@ class IncidentController extends Controller
                 'assigned_agency' => $assignedAgency,
             ]);
 
+            // Multi-layer persistence: Sync to cloud KV store and local file backup
+            IncidentPersistenceService::persistReport($report);
+
+            // Store in user session
+            $request->session()->push('my_submitted_reports', $report->toArray());
+
+            // Prepare cookie with user's reports list (max 20)
+            $existingCookie = $request->cookie('baliguard_my_reports');
+            $userReports = [];
+            if ($existingCookie) {
+                $decoded = json_decode($existingCookie, true);
+                if (is_array($decoded)) {
+                    $userReports = $decoded;
+                }
+            }
+            $userReports[strtoupper($report->tracking_code)] = [
+                'tracking_code' => $report->tracking_code,
+                'category' => $report->category,
+                'category_label' => $report->category_label,
+                'incident_location' => $report->incident_location,
+                'created_at' => $report->created_at->format('Y-m-d H:i:s'),
+                'status' => $report->status,
+            ];
+            // Keep recent 20
+            if (count($userReports) > 20) {
+                $userReports = array_slice($userReports, -20, 20, true);
+            }
+
+            $cookie = cookie('baliguard_my_reports', json_encode(array_values($userReports)), 60 * 24 * 365);
+
             return redirect()->route('report.track', ['code' => $report->tracking_code])
-                ->with('success', 'Laporan Anda berhasil dikirim ke Pusat Kendali BaliGuard! Simpan kode pelacakan di bawah ini.');
+                ->with('success', 'Laporan Anda berhasil dikirim ke Pusat Kendali BaliGuard! Simpan kode pelacakan di bawah ini.')
+                ->withCookie($cookie);
         } catch (\Throwable $e) {
             Log::error('Gagal menyimpan laporan insiden: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
@@ -134,9 +166,104 @@ class IncidentController extends Controller
         $report = null;
 
         if ($trackingCode) {
-            $report = IncidentReport::where('tracking_code', trim(strtoupper($trackingCode)))->first();
+            $cleanCode = trim(strtoupper($trackingCode));
+            $report = IncidentReport::where('tracking_code', $cleanCode)->first();
+
+            // If not found in current SQLite instance (e.g. freshly spun Vercel container),
+            // synchronize from Cloud & Local Backup immediately!
+            if (!$report) {
+                IncidentPersistenceService::syncToDatabase();
+                $report = IncidentReport::where('tracking_code', $cleanCode)->first();
+            }
+
+            // If still not found, check if it exists in the user's cookie / session
+            if (!$report) {
+                $userReports = IncidentPersistenceService::getUserReports($request);
+                foreach ($userReports as $uReport) {
+                    if (strtoupper($uReport['tracking_code'] ?? '') === $cleanCode) {
+                        try {
+                            $report = IncidentReport::create([
+                                'tracking_code' => $cleanCode,
+                                'reporter_name' => $uReport['reporter_name'] ?? 'Pelapor',
+                                'reporter_email' => $uReport['reporter_email'] ?? null,
+                                'reporter_phone' => $uReport['reporter_phone'] ?? '-',
+                                'reporter_nationality' => $uReport['reporter_nationality'] ?? 'Indonesia',
+                                'passport_or_id' => $uReport['passport_or_id'] ?? null,
+                                'category' => $uReport['category'] ?? 'other',
+                                'regency' => $uReport['regency'] ?? 'Badung',
+                                'incident_location' => $uReport['incident_location'] ?? 'Bali',
+                                'latitude' => !empty($uReport['latitude']) ? (float) $uReport['latitude'] : null,
+                                'longitude' => !empty($uReport['longitude']) ? (float) $uReport['longitude'] : null,
+                                'incident_date' => now(),
+                                'description' => $uReport['description'] ?? 'Laporan insiden keamanan.',
+                                'status' => 'SUBMITTED',
+                                'priority' => 'MEDIUM',
+                                'assigned_agency' => 'Pusat Kendali BaliGuard',
+                            ]);
+                            IncidentPersistenceService::persistReport($report);
+                        } catch (\Throwable $err) {
+                            Log::warning('Cookie recovery insert failed: ' . $err->getMessage());
+                        }
+                        break;
+                    }
+                }
+            }
         }
 
-        return view('report.track', compact('report', 'trackingCode'));
+        // Retrieve user's previous reports list for convenient history switching
+        $myReports = IncidentPersistenceService::getUserReports($request);
+
+        return view('report.track', compact('report', 'trackingCode', 'myReports'));
+    }
+
+    /**
+     * API endpoint to synchronize report payload from client localStorage
+     */
+    public function syncFromClient(Request $request)
+    {
+        $reports = $request->input('reports', []);
+        if (!is_array($reports)) {
+            return response()->json(['status' => 'ERROR', 'message' => 'Invalid payload'], 400);
+        }
+
+        $synced = 0;
+        foreach ($reports as $data) {
+            if (empty($data['tracking_code'])) {
+                continue;
+            }
+
+            $code = trim(strtoupper($data['tracking_code']));
+            $exists = IncidentReport::where('tracking_code', $code)->first();
+
+            if (!$exists) {
+                try {
+                    $rep = IncidentReport::create([
+                        'tracking_code' => $code,
+                        'reporter_name' => $data['reporter_name'] ?? 'Wisatawan',
+                        'reporter_email' => $data['reporter_email'] ?? null,
+                        'reporter_phone' => $data['reporter_phone'] ?? '-',
+                        'reporter_nationality' => $data['reporter_nationality'] ?? 'Indonesia',
+                        'passport_or_id' => $data['passport_or_id'] ?? null,
+                        'category' => $data['category'] ?? 'other',
+                        'regency' => $data['regency'] ?? 'Badung',
+                        'incident_location' => $data['incident_location'] ?? 'Bali',
+                        'latitude' => !empty($data['latitude']) ? (float) $data['latitude'] : null,
+                        'longitude' => !empty($data['longitude']) ? (float) $data['longitude'] : null,
+                        'incident_date' => now(),
+                        'description' => $data['description'] ?? 'Laporan dari perangkat pelapor.',
+                        'status' => $data['status'] ?? 'SUBMITTED',
+                        'priority' => 'MEDIUM',
+                        'assigned_agency' => $data['assigned_agency'] ?? 'Pusat Kendali Satpol PP & BPBD Bali',
+                    ]);
+
+                    IncidentPersistenceService::persistReport($rep);
+                    $synced++;
+                } catch (\Throwable $e) {
+                    Log::warning('Client sync insert failed: ' . $e->getMessage());
+                }
+            }
+        }
+
+        return response()->json(['status' => 'OK', 'synced' => $synced]);
     }
 }

@@ -11,8 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome 6 Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome 6 Free Icons with Dual CDN for All Mobile & Desktop Browsers -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
 
     <!-- Leaflet Map CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -82,20 +83,29 @@
 <body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-amber-500 selection:text-white pb-mobile-nav">
 
     <!-- Top Emergency Announcement Bar -->
-    <div class="bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white text-xs md:text-sm font-medium py-2 px-4 shadow-sm">
+    <div class="bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white text-xs md:text-sm font-medium py-1.5 px-4 shadow-sm">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
                 <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-white text-red-600 uppercase tracking-wider animate-pulse">
                     <i class="fa-solid fa-triangle-exclamation mr-1"></i> Hotlines
                 </span>
-                <span class="truncate">Nomor Darurat Terpadu Bali: <strong>112</strong> (Bebas Pulsa) | Polisi: <strong>110</strong> | Ambulans: <strong>118/119</strong></span>
+                <span class="truncate">Bali 24/7 Emergency: <strong>112</strong> | Police: <strong>110</strong> | Ambulance: <strong>118/119</strong></span>
             </div>
-            <div class="hidden sm:flex items-center space-x-4 text-xs font-semibold">
-                <a href="tel:112" class="hover:underline flex items-center"><i class="fa-solid fa-phone mr-1"></i> Panggil 112</a>
-                <span class="text-white/40">|</span>
-                <a href="https://wa.me/6281234567890" target="_blank" class="hover:underline flex items-center text-emerald-200">
-                    <i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp Hotline
-                </a>
+            <div class="flex items-center space-x-3 text-xs font-semibold">
+                <!-- Multilingual Quick Switcher -->
+                <div class="inline-flex items-center rounded-lg bg-black/25 p-0.5 border border-white/20 text-[11px]">
+                    <a href="{{ route('lang.switch', 'id') }}" class="px-2 py-0.5 rounded {{ app()->getLocale() === 'id' ? 'bg-white text-slate-900 font-extrabold shadow-sm' : 'text-white/80 hover:text-white' }}" title="Bahasa Indonesia">🇮🇩 ID</a>
+                    <a href="{{ route('lang.switch', 'en') }}" class="px-2 py-0.5 rounded {{ app()->getLocale() === 'en' ? 'bg-white text-slate-900 font-extrabold shadow-sm' : 'text-white/80 hover:text-white' }}" title="English">🇬🇧 EN</a>
+                    <a href="{{ route('lang.switch', 'zh') }}" class="px-2 py-0.5 rounded {{ app()->getLocale() === 'zh' ? 'bg-white text-slate-900 font-extrabold shadow-sm' : 'text-white/80 hover:text-white' }}" title="中文">🇨🇳 中文</a>
+                    <a href="{{ route('lang.switch', 'ja') }}" class="px-2 py-0.5 rounded {{ app()->getLocale() === 'ja' ? 'bg-white text-slate-900 font-extrabold shadow-sm' : 'text-white/80 hover:text-white' }}" title="日本語">🇯🇵 日本語</a>
+                </div>
+                <div class="hidden sm:flex items-center space-x-2">
+                    <a href="tel:112" class="hover:underline flex items-center"><i class="fa-solid fa-phone mr-1"></i> 112</a>
+                    <span class="text-white/40">|</span>
+                    <a href="https://wa.me/6281234567890" target="_blank" class="hover:underline flex items-center text-emerald-200">
+                        <i class="fa-brands fa-whatsapp mr-1"></i> WA
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -122,23 +132,23 @@
 
                 <!-- Desktop Navigation Links -->
                 <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-semibold">
-                    <a href="{{ route('home') }}" class="px-3.5 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('home') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
-                        <i class="fa-solid fa-house mr-1.5 opacity-70"></i> Beranda
+                    <a href="{{ route('home') }}" class="px-3 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('home') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
+                        <i class="fa-solid fa-house mr-1.5 opacity-70"></i> {{ __t('nav_home') }}
                     </a>
-                    <a href="{{ route('map') }}" class="px-3.5 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('map') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
-                        <i class="fa-solid fa-map-location-dot mr-1.5 opacity-70"></i> Peta Keamanan
+                    <a href="{{ route('map') }}" class="px-3 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('map') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
+                        <i class="fa-solid fa-map-location-dot mr-1.5 opacity-70"></i> {{ __t('nav_map') }}
                     </a>
-                    <a href="{{ route('guidelines') }}" class="px-3.5 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('guidelines') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
-                        <i class="fa-solid fa-book-bookmark mr-1.5 opacity-70"></i> Tata Tertib
+                    <a href="{{ route('guidelines') }}" class="px-3 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('guidelines') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
+                        <i class="fa-solid fa-book-bookmark mr-1.5 opacity-70"></i> {{ __t('nav_guidelines') }}
                     </a>
-                    <a href="{{ route('report.create') }}" class="px-3.5 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('report.create') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
-                        <i class="fa-solid fa-file-shield mr-1.5 opacity-70"></i> Lapor Insiden
+                    <a href="{{ route('report.create') }}" class="px-3 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('report.create') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
+                        <i class="fa-solid fa-shield-halved mr-1.5 opacity-70"></i> {{ __t('nav_report') }}
                     </a>
-                    <a href="{{ route('report.track') }}" class="px-3.5 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('report.track') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
-                        <i class="fa-solid fa-magnifying-glass-location mr-1.5 opacity-70"></i> Cek Status
+                    <a href="{{ route('report.track') }}" class="px-3 py-2 rounded-lg hover:text-amber-400 hover:bg-slate-800/60 transition {{ request()->routeIs('report.track') ? 'text-amber-400 bg-slate-800/80' : 'text-slate-300' }}">
+                        <i class="fa-solid fa-magnifying-glass mr-1.5 opacity-70"></i> {{ __t('nav_track') }}
                     </a>
-                    <a href="{{ route('admin.dashboard') }}" class="px-3 py-2 text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition ml-2 border border-slate-700">
-                        <i class="fa-solid fa-user-shield mr-1"></i> Petugas
+                    <a href="{{ route('admin.dashboard') }}" class="px-2.5 py-1.5 text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition ml-1 border border-slate-700">
+                        <i class="fa-solid fa-user-shield mr-1"></i> {{ __t('nav_admin') }}
                     </a>
                 </nav>
 
@@ -150,7 +160,7 @@
                             <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-slate-900"></span>
                         </span>
                         <i class="fa-solid fa-triangle-exclamation mr-2 animate-bounce-slight"></i>
-                        <span>SOS DARURAT</span>
+                        <span>{{ __t('nav_sos') }}</span>
                     </button>
                 </div>
             </div>
@@ -255,8 +265,8 @@
                     <h3 class="text-white font-bold text-sm tracking-wider uppercase">Dukungan AI Gemini</h3>
                     <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 space-y-2.5">
                         <div class="flex items-center space-x-2 text-amber-400 font-semibold">
-                            <i class="fa-solid fa-sparkles"></i>
-                            <span>BaliGuard AI Assistant</span>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>{{ __t('chat_title') }}</span>
                         </div>
                         <p class="leading-relaxed">
                             Dilengkapi kecerdasan buatan Google Gemini untuk merespons pertanyaan keselamatan, etika Pura, panduan medis, dan rujukan darurat secara interaktif.
@@ -285,11 +295,11 @@
         <div class="grid grid-cols-5 text-center text-[10px] font-semibold">
             <a href="{{ route('home') }}" class="flex flex-col items-center py-1 {{ request()->routeIs('home') ? 'text-amber-400 font-bold' : 'hover:text-white' }}">
                 <i class="fa-solid fa-house text-base mb-1"></i>
-                <span>Beranda</span>
+                <span>{{ __t('nav_home') }}</span>
             </a>
             <a href="{{ route('map') }}" class="flex flex-col items-center py-1 {{ request()->routeIs('map') ? 'text-amber-400 font-bold' : 'hover:text-white' }}">
                 <i class="fa-solid fa-map-location-dot text-base mb-1"></i>
-                <span>Peta</span>
+                <span>{{ __t('nav_map') }}</span>
             </a>
             <button onclick="openSosModal()" class="flex flex-col items-center -mt-5">
                 <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-red-600 to-rose-500 text-white flex items-center justify-center shadow-lg shadow-red-600/50 border-2 border-slate-900 animate-pulse">
@@ -299,11 +309,11 @@
             </button>
             <a href="{{ route('report.create') }}" class="flex flex-col items-center py-1 {{ request()->routeIs('report.create') ? 'text-amber-400 font-bold' : 'hover:text-white' }}">
                 <i class="fa-solid fa-file-pen text-base mb-1"></i>
-                <span>Lapor</span>
+                <span>{{ __t('nav_report') }}</span>
             </a>
             <button onclick="toggleChatbot(true)" class="flex flex-col items-center py-1 hover:text-white relative">
                 <i class="fa-solid fa-robot text-base mb-1 text-amber-400"></i>
-                <span>AI Chat</span>
+                <span>{{ __t('nav_chat') }}</span>
                 <span class="absolute top-1 right-3 w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
             </button>
         </div>

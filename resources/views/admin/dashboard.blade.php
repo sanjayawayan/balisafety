@@ -28,7 +28,7 @@
         <div class="bg-gradient-to-br from-red-600 to-rose-700 text-white rounded-3xl p-5 shadow-lg shadow-red-600/20 relative overflow-hidden">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-bold uppercase tracking-wider text-red-100">SOS Aktif / Belum Selesai</span>
-                <i class="fa-solid fa-bell-exclamation text-xl text-red-200"></i>
+                <i class="fa-solid fa-bell text-xl text-red-200"></i>
             </div>
             <div class="mt-3 text-3xl sm:text-4xl font-black">{{ $stats['active_sos'] }}</div>
             <p class="text-[11px] text-red-100 mt-1">Sinyal darurat butuh respon</p>
@@ -51,7 +51,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Total Insiden Masuk</span>
                 <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-file-shield"></i>
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
             </div>
             <div class="mt-3 text-3xl sm:text-4xl font-black text-slate-900">{{ $stats['total_incidents'] }}</div>

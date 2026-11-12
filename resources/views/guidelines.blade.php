@@ -179,7 +179,7 @@
         <div class="guideline-card bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition space-y-4" data-category="temple">
             <div class="flex items-center space-x-3 pb-3 border-b border-slate-100">
                 <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-users-viewfinder"></i>
+                    <i class="fa-solid fa-users"></i>
                 </div>
                 <div>
                     <span class="text-[10px] font-bold text-purple-600 uppercase tracking-widest">Keharmonisan Desa Adat</span>
@@ -208,7 +208,7 @@
     <div class="mt-12 p-6 sm:p-8 bg-slate-900 rounded-3xl text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-slate-800 shadow-xl">
         <div class="space-y-2 text-center sm:text-left">
             <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center justify-center sm:justify-start">
-                <i class="fa-solid fa-sparkles mr-1.5"></i> Pertanyaan Spesifik Regulasi?
+                <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> Pertanyaan Spesifik Regulasi?
             </span>
             <h3 class="text-lg sm:text-xl font-bold">Konsultasikan dengan Asisten AI Gemini BaliGuard</h3>
             <p class="text-xs sm:text-sm text-slate-300">Tanyakan hukum lalu lintas, etika pura, atau perizinan turis secara langsung dalam bahasa Anda.</p>

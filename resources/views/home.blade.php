@@ -27,7 +27,7 @@
                 <span class="font-medium text-slate-300">BASARNAS & Balawista</span>
             </div>
             <div class="flex items-center space-x-2 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-full">
-                <i class="fa-solid fa-handshake-angle text-emerald-400"></i>
+                <i class="fa-solid fa-handshake text-emerald-400"></i>
                 <span class="font-medium text-slate-300">Pecalang Adat Bali</span>
             </div>
         </div>
@@ -35,13 +35,13 @@
         <!-- Main Headline -->
         <div class="text-center max-w-4xl mx-auto space-y-4">
             <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-extrabold bg-gradient-to-r from-amber-500/20 to-red-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-widest shadow-inner">
-                <i class="fa-solid fa-shield-cat mr-2 text-amber-400"></i> Platform Keamanan & Early Warning Terpadu
+                <i class="fa-solid fa-shield-cat mr-2 text-amber-400"></i> {{ __t('hero_badge') }}
             </span>
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-serif">
-                Menjaga Harmoni & <span class="gold-gradient-text">Keselamatan Anda</span> di Pulau Dewata
+                {{ __t('hero_title_1') }} <span class="gold-gradient-text">{{ __t('hero_title_2') }}</span>
             </h1>
             <p class="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-                Sistem tanggap darurat 24/7 resmi untuk wisatawan di Bali. Dilengkapi Tombol SOS cepat, pelaporan insiden terverifikasi, peta zonasi risiko, dan AI Chatbot Gemini.
+                {{ __t('hero_desc') }}
             </p>
         </div>
 
@@ -53,15 +53,15 @@
                 <div class="absolute -right-4 -bottom-4 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white text-2xl group-hover:rotate-12 transition-transform">
-                        <i class="fa-solid fa-bell-exclamation animate-bounce"></i>
+                        <i class="fa-solid fa-bell animate-bounce"></i>
                     </div>
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-white text-red-700 uppercase tracking-wider animate-pulse">
-                        Panggilan Darurat
+                        24/7 HOTLINE
                     </span>
                 </div>
-                <h3 class="text-xl font-extrabold text-white tracking-wide">TOMBOL SOS CEPAT</h3>
+                <h3 class="text-xl font-extrabold text-white tracking-wide">{{ __t('btn_panic_sos') }}</h3>
                 <p class="text-xs text-red-100 mt-1 leading-relaxed">
-                    Satu ketukan kirim koordinat GPS Anda ke kepolisian, ambulans, dan SAR terdekat.
+                    {{ __t('btn_panic_sub') }}
                 </p>
             </button>
 
@@ -69,15 +69,15 @@
             <a href="{{ route('report.create') }}" class="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 p-6 text-left shadow-xl border border-slate-700 hover:border-amber-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-file-shield"></i>
+                        <i class="fa-solid fa-shield-halved"></i>
                     </div>
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wider">
-                        Formulir Online
+                        PORTAL RESMI
                     </span>
                 </div>
-                <h3 class="text-xl font-extrabold text-white tracking-wide">LAPOR INSIDEN</h3>
+                <h3 class="text-xl font-extrabold text-white tracking-wide">{{ __t('nav_report') }}</h3>
                 <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Laporkan kehilangan dokumen, pencurian, kecelakaan, atau konflik secara aman & resmi.
+                    {{ __t('feature_report_desc') }}
                 </p>
             </a>
 
@@ -94,13 +94,13 @@
                         <input 
                             type="text" 
                             name="code" 
-                            placeholder="Cek status laporan (cth: BG-26-8841A)..." 
+                            placeholder="{{ __t('track_input_ph') }}" 
                             class="w-full pl-9 pr-3 py-2 text-xs bg-slate-950 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:border-amber-500 focus:outline-none"
                             required
                         >
                     </div>
                     <button type="submit" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-bold rounded-xl border border-slate-700 whitespace-nowrap transition">
-                        Lacak
+                        {{ __t('track_btn') }}
                     </button>
                 </form>
 
@@ -108,8 +108,8 @@
 
                 <!-- Chatbot Quick Launch -->
                 <button onclick="toggleChatbot(true)" class="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 border border-amber-500/40 text-xs font-bold rounded-xl flex items-center justify-center space-x-2 transition">
-                    <i class="fa-solid fa-sparkles text-amber-400"></i>
-                    <span>Tanya Asisten AI Gemini</span>
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
+                    <span>{{ __t('chat_title') }}</span>
                 </button>
             </div>
         </div>
@@ -148,7 +148,7 @@
                 <!-- Col 3: BMKG Weather -->
                 <div class="flex items-center space-x-3 justify-center sm:justify-start pt-3 sm:pt-0 sm:pl-4">
                     <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 text-lg flex-shrink-0">
-                        <i class="fa-solid fa-sun-cloud"></i>
+                        <i class="fa-solid fa-cloud-sun"></i>
                     </div>
                     <div>
                         <p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Cuaca BMKG Denpasar</p>

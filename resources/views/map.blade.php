@@ -29,7 +29,7 @@
             <!-- Emergency Trigger -->
             <div class="flex-shrink-0">
                 <button onclick="openSosModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold text-xs shadow-md transition flex items-center space-x-2">
-                    <i class="fa-solid fa-bell-exclamation animate-bounce"></i>
+                    <i class="fa-solid fa-bell animate-bounce"></i>
                     <span>TOMBOL SOS DARURAT</span>
                 </button>
             </div>

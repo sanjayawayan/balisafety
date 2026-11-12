@@ -10,8 +10,8 @@
                         <i class="fa-solid fa-triangle-exclamation text-2xl text-white"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-extrabold tracking-wide uppercase">Panggilan Darurat SOS</h3>
-                        <p class="text-xs text-red-100">Pusat Tanggap Darurat & Komando BaliGuard</p>
+                        <h3 class="text-lg font-extrabold tracking-wide uppercase">{{ __t('sos_modal_title') }}</h3>
+                        <p class="text-xs text-red-100">{{ __t('sos_modal_sub') }}</p>
                     </div>
                 </div>
                 <button type="button" onclick="closeSosModal()" class="text-white/80 hover:text-white text-2xl font-bold">&times;</button>
@@ -34,19 +34,19 @@
                     <div class="grid grid-cols-2 gap-2.5 text-xs font-semibold">
                         <label class="cursor-pointer border-2 border-slate-200 rounded-xl p-3 flex items-center space-x-2.5 hover:border-red-500 transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
                             <input type="radio" name="sos_emergency_type" value="medical" class="accent-red-600" checked>
-                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-truck-medical text-red-600 text-base mr-2"></i> Medis / Ambulans</span>
+                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-truck-medical text-red-600 text-base mr-2"></i> {{ __t('sos_cat_medical') }}</span>
                         </label>
                         <label class="cursor-pointer border-2 border-slate-200 rounded-xl p-3 flex items-center space-x-2.5 hover:border-red-500 transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
                             <input type="radio" name="sos_emergency_type" value="police" class="accent-red-600">
-                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-shield-halved text-blue-600 text-base mr-2"></i> Kejahatan / Polisi</span>
+                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-shield-halved text-blue-600 text-base mr-2"></i> {{ __t('sos_cat_criminal') }}</span>
                         </label>
                         <label class="cursor-pointer border-2 border-slate-200 rounded-xl p-3 flex items-center space-x-2.5 hover:border-red-500 transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
                             <input type="radio" name="sos_emergency_type" value="rescue" class="accent-red-600">
-                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-life-ring text-amber-600 text-base mr-2"></i> Arus Laut / SAR</span>
+                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-life-ring text-amber-600 text-base mr-2"></i> {{ __t('sos_cat_accident') }}</span>
                         </label>
                         <label class="cursor-pointer border-2 border-slate-200 rounded-xl p-3 flex items-center space-x-2.5 hover:border-red-500 transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
                             <input type="radio" name="sos_emergency_type" value="disaster" class="accent-red-600">
-                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-volcano text-orange-600 text-base mr-2"></i> Bencana / Cuaca</span>
+                            <span class="flex items-center text-slate-800"><i class="fa-solid fa-volcano text-orange-600 text-base mr-2"></i> {{ __t('sos_cat_disaster') }}</span>
                         </label>
                         <label class="cursor-pointer border-2 border-slate-200 rounded-xl p-3 flex items-center space-x-2.5 hover:border-red-500 transition has-[:checked]:border-red-600 has-[:checked]:bg-red-50">
                             <input type="radio" name="sos_emergency_type" value="harassment" class="accent-red-600">
@@ -97,7 +97,7 @@
                 <!-- Trigger Button -->
                 <button type="button" id="btnSubmitSos" onclick="sendSosSignal()" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white font-extrabold text-base shadow-xl shadow-red-600/40 hover:shadow-red-600/60 active:scale-98 transition flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-satellite-dish text-xl animate-pulse"></i>
-                    <span>KIRIM SINYAL SOS SEKARANG!</span>
+                    <span>{{ __t('sos_btn_send') }}</span>
                 </button>
             </div>
 

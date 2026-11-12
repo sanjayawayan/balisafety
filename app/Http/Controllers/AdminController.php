@@ -6,6 +6,7 @@ use App\Models\ChatMessage;
 use App\Models\IncidentReport;
 use App\Models\SosAlert;
 use App\Models\WarningAlert;
+use App\Services\IncidentPersistenceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -70,6 +71,9 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
+        // Hydrate from cloud store & backup so admin always sees all submitted reports
+        IncidentPersistenceService::syncToDatabase();
+
         $stats = [
             'total_incidents' => IncidentReport::count(),
             'pending_incidents' => IncidentReport::where('status', 'SUBMITTED')->count(),
@@ -149,6 +153,9 @@ class AdminController extends Controller
      */
     public function incidentsIndex(Request $request)
     {
+        // Hydrate from cloud store & backup so admin always sees all submitted reports
+        IncidentPersistenceService::syncToDatabase();
+
         $query = IncidentReport::query();
 
         if ($request->filled('search')) {
@@ -197,6 +204,14 @@ class AdminController extends Controller
         }
 
         $incident->update([
+            'status' => $request->status,
+            'priority' => $request->priority,
+            'assigned_agency' => $request->assigned_agency,
+            'officer_notes' => $request->officer_notes,
+        ]);
+
+        // Sync status update across cloud store & local backup
+        IncidentPersistenceService::updateReportStatus($incident->tracking_code, [
             'status' => $request->status,
             'priority' => $request->priority,
             'assigned_agency' => $request->assigned_agency,
