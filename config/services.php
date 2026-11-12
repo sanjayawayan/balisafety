@@ -2,8 +2,8 @@
 
 return [
     'admin' => [
-        'username' => env('ADMIN_USERNAME'),
-        'password' => env('ADMIN_PASSWORD'),
+        'username' => env('ADMIN_USERNAME', 'admin'),
+        'password' => env('ADMIN_PASSWORD', 'baliguard2026'),
     ],
     'gemini' => [
         'key' => env('GEMINI_API_KEY'),

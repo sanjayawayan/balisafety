@@ -106,10 +106,38 @@
                 </div>
             </div>
 
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 text-xs sm:text-sm">
-                <p class="text-slate-700 leading-relaxed">
-                    Status laporan diperbarui oleh petugas. Rincian laporan dan data pelapor hanya tersedia bagi petugas berwenang.
-                </p>
+            <!-- Incident Details & Officer Notes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 text-xs sm:text-sm space-y-2.5">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Rincian Informasi Laporan</span>
+                    <div class="flex justify-between border-b border-slate-200/60 pb-1.5">
+                        <span class="text-slate-500">Kategori Insiden:</span>
+                        <span class="font-bold text-slate-800">{{ $report->category_label }}</span>
+                    </div>
+                    <div class="flex justify-between border-b border-slate-200/60 pb-1.5">
+                        <span class="text-slate-500">Wilayah / Kabupaten:</span>
+                        <span class="font-bold text-slate-800">{{ $report->regency }}</span>
+                    </div>
+                    <div class="flex justify-between border-b border-slate-200/60 pb-1.5">
+                        <span class="text-slate-500">Lokasi Kejadian:</span>
+                        <span class="font-semibold text-slate-800 text-right max-w-[200px] truncate">{{ $report->incident_location }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Instansi Penanggung Jawab:</span>
+                        <span class="font-bold text-amber-700 text-right">{{ $report->assigned_agency ?: 'Pusat Kendali Satpol PP & BPBD Bali' }}</span>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50/50 rounded-2xl p-5 border border-amber-200 text-xs sm:text-sm space-y-2">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block flex items-center">
+                        <i class="fa-solid fa-clipboard-check mr-1.5"></i> Catatan Tindak Lanjut Petugas
+                    </span>
+                    @if($report->officer_notes)
+                        <p class="text-slate-800 leading-relaxed whitespace-pre-line font-medium">{{ $report->officer_notes }}</p>
+                    @else
+                        <p class="text-slate-500 italic">Petugas piket sedang memvalidasi berkas laporan. Catatan perkembangan lapangan akan segera dimutakhirkan di sini.</p>
+                    @endif
+                </div>
             </div>
 
             <!-- Follow-up Support -->

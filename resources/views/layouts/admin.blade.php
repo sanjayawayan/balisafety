@@ -91,15 +91,24 @@
 
             <!-- Sidebar Footer -->
             <div class="p-4 mt-auto border-t border-slate-800 text-[11px] text-slate-400">
-                <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 text-amber-400 flex items-center justify-center font-bold">
-                        P
-                    </div>
-                    <div>
-                        <p class="font-bold text-white text-xs">Petugas Piket Terpadu</p>
-                        <p class="text-[10px] text-slate-500">Pusdalops BaliGuard</p>
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 text-amber-400 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-user-shield text-xs"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-white text-xs">{{ session('admin_user', 'Administrator') }}</p>
+                            <p class="text-[10px] text-slate-500">Pusdalops BaliGuard</p>
+                        </div>
                     </div>
                 </div>
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full py-2 px-3 bg-slate-900 hover:bg-rose-950/60 hover:text-rose-400 text-slate-300 font-bold rounded-xl transition flex items-center justify-center space-x-2 border border-slate-800 text-xs">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Keluar (Logout)</span>
+                    </button>
+                </form>
             </div>
         </aside>
 
@@ -127,7 +136,7 @@
                 </div>
             </header>
 
-            <!-- Flash Alert -->
+            <!-- Flash Alerts -->
             @if(session('success'))
             <div class="px-6 pt-4">
                 <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs sm:text-sm font-semibold flex items-center justify-between">
@@ -136,6 +145,30 @@
                         <span>{{ session('success') }}</span>
                     </div>
                     <button onclick="this.parentElement.remove()" class="text-emerald-700 hover:text-emerald-900 font-bold">&times;</button>
+                </div>
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="px-6 pt-4">
+                <div class="p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 text-xs sm:text-sm font-semibold flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600 mr-2 text-base"></i>
+                        <span>{{ session('error') }}</span>
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="text-rose-700 hover:text-rose-900 font-bold">&times;</button>
+                </div>
+            </div>
+            @endif
+
+            @if(session('warning'))
+            <div class="px-6 pt-4">
+                <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 text-amber-800 text-xs sm:text-sm font-semibold flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-circle-exclamation text-amber-600 mr-2 text-base"></i>
+                        <span>{{ session('warning') }}</span>
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="text-amber-700 hover:text-amber-900 font-bold">&times;</button>
                 </div>
             </div>
             @endif

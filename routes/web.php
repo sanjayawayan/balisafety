@@ -33,6 +33,11 @@ Route::post('/api/chat', [ChatbotController::class, 'chat'])->name('api.chat');
 Route::get('/api/chat/history', [ChatbotController::class, 'history'])->name('api.chat.history');
 Route::post('/api/chat/clear', [ChatbotController::class, 'clear'])->name('api.chat.clear');
 
+// Dispatcher & Admin Authentication
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
 // Dispatcher & Admin Panel
 Route::prefix('admin')->middleware('admin.auth')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');

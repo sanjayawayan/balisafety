@@ -37,7 +37,11 @@ class IncidentReport extends Model
 
     public static function generateTrackingCode(): string
     {
-        return 'BG-' . date('y') . '-' . strtoupper(bin2hex(random_bytes(8)));
+        do {
+            $code = 'BG-' . date('y') . '-' . strtoupper(bin2hex(random_bytes(4)));
+        } while (static::where('tracking_code', $code)->exists());
+
+        return $code;
     }
 
     public function getCategoryLabelAttribute(): string

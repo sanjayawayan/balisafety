@@ -211,6 +211,10 @@
         }
     }
 
+    if (new URLSearchParams(window.location.search).get('chat') === 'open') {
+        setTimeout(() => toggleChatbot(true), 300);
+    }
+
     function sendQuickPrompt(promptText) {
         const input = document.getElementById('chatInput');
         input.value = promptText.substring(0, 250);

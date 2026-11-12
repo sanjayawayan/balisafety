@@ -98,7 +98,17 @@
                                 <span class="text-slate-800 font-semibold">{{ $inc->assigned_agency ?: 'Belum ditugaskan' }}</span>
                             </td>
                             <td class="px-5 py-4 text-right">
-                                <button onclick="openIncidentModal({{ $inc->id }}, '{{ $inc->tracking_code }}', '{{ $inc->status }}', '{{ $inc->priority }}', '{{ addslashes($inc->assigned_agency) }}', '{{ addslashes($inc->officer_notes) }}')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-lg text-xs shadow-sm transition">
+                                <button 
+                                    type="button"
+                                    onclick="openIncidentModal(this)" 
+                                    data-id="{{ $inc->id }}"
+                                    data-code="{{ $inc->tracking_code }}"
+                                    data-status="{{ $inc->status }}"
+                                    data-priority="{{ $inc->priority }}"
+                                    data-agency="{{ $inc->assigned_agency }}"
+                                    data-notes="{{ $inc->officer_notes }}"
+                                    class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-lg text-xs shadow-sm transition"
+                                >
                                     <i class="fa-solid fa-pen-to-square mr-1"></i> Perbarui
                                 </button>
                             </td>
@@ -175,7 +185,14 @@
 </div>
 
 <script>
-    function openIncidentModal(id, code, status, priority, agency, notes) {
+    function openIncidentModal(btn) {
+        const id = btn.getAttribute('data-id');
+        const code = btn.getAttribute('data-code');
+        const status = btn.getAttribute('data-status') || 'SUBMITTED';
+        const priority = btn.getAttribute('data-priority') || 'MEDIUM';
+        const agency = btn.getAttribute('data-agency') || '';
+        const notes = btn.getAttribute('data-notes') || '';
+
         document.getElementById('incModalTitle').innerText = 'Perbarui Kasus: ' + code;
         document.getElementById('incidentForm').action = '/admin/incidents/' + id;
         document.getElementById('modalStatus').value = status;

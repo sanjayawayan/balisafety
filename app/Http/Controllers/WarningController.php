@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WarningAlert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WarningController extends Controller
 {
@@ -15,7 +16,7 @@ class WarningController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:200',
             'severity' => 'required|in:INFO,WARNING,DANGER,CRITICAL',
             'category' => 'required|string|max:50',
@@ -23,6 +24,12 @@ class WarningController extends Controller
             'content' => 'required|string|max:1000',
             'valid_until' => 'nullable|date',
         ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $validated = $validator->validated();
 
         WarningAlert::create([
             'title' => $validated['title'],

@@ -113,8 +113,16 @@
                     </div>
 
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Lokasi Spesifik / Patokan <span class="text-red-600">*</span></label>
-                        <input type="text" name="incident_location" value="{{ old('incident_location') }}" placeholder="Cth: Depan Cafe Luwak, Jl. Pantai Batu Bolong, Canggu" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none" required>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="block font-bold text-slate-700">Lokasi Spesifik / Patokan <span class="text-red-600">*</span></label>
+                            <button type="button" onclick="detectIncidentLocation()" id="btnGps" class="text-[11px] font-bold text-amber-600 hover:text-amber-700 flex items-center">
+                                <i class="fa-solid fa-location-crosshairs mr-1"></i> <span id="gpsText">Deteksi GPS</span>
+                            </button>
+                        </div>
+                        <input type="text" name="incident_location" id="incident_location" value="{{ old('incident_location') }}" placeholder="Cth: Depan Cafe Luwak, Jl. Pantai Batu Bolong, Canggu" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none" required>
+                        <input type="hidden" name="latitude" id="incident_lat" value="{{ old('latitude') }}">
+                        <input type="hidden" name="longitude" id="incident_lng" value="{{ old('longitude') }}">
+                        <p id="gpsStatus" class="text-[10px] text-slate-400 mt-1 hidden"></p>
                     </div>
 
                     <div class="sm:col-span-2">
@@ -145,4 +153,43 @@
     </div>
 
 </div>
+
+<script>
+    function detectIncidentLocation() {
+        const statusEl = document.getElementById('gpsStatus');
+        const textEl = document.getElementById('gpsText');
+        const locInput = document.getElementById('incident_location');
+        const latInput = document.getElementById('incident_lat');
+        const lngInput = document.getElementById('incident_lng');
+
+        if (!navigator.geolocation) {
+            statusEl.innerText = 'Peramban tidak mendukung geolokasi GPS.';
+            statusEl.classList.remove('hidden');
+            return;
+        }
+
+        textEl.innerText = 'Mendeteksi...';
+        statusEl.innerText = 'Menghubungkan satelit GPS...';
+        statusEl.classList.remove('hidden');
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const lat = pos.coords.latitude.toFixed(6);
+                const lng = pos.coords.longitude.toFixed(6);
+                latInput.value = lat;
+                lngInput.value = lng;
+                textEl.innerText = 'GPS Terkunci ✓';
+                statusEl.innerHTML = '<span class="text-emerald-600 font-semibold">Koordinat GPS (' + lat + ', ' + lng + ') berhasil dilampirkan.</span>';
+                if (!locInput.value) {
+                    locInput.value = 'Koordinat GPS: ' + lat + ', ' + lng;
+                }
+            },
+            (err) => {
+                textEl.innerText = 'Deteksi GPS';
+                statusEl.innerHTML = '<span class="text-rose-600">Izin lokasi GPS ditolak atau tidak tersedia. Masukkan patokan manual.</span>';
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+        );
+    }
+</script>
 @endsection

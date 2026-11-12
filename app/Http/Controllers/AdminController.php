@@ -7,9 +7,64 @@ use App\Models\IncidentReport;
 use App\Models\SosAlert;
 use App\Models\WarningAlert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
+    /**
+     * Show Admin Login Form
+     */
+    public function showLoginForm(Request $request)
+    {
+        if ($request->session()->get('admin_logged_in') === true) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return view('admin.login');
+    }
+
+    /**
+     * Process Admin Login
+     */
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $configuredUser = config('services.admin.username', 'admin') ?: 'admin';
+        $configuredPass = config('services.admin.password', 'baliguard2026') ?: 'baliguard2026';
+
+        if (hash_equals($configuredUser, (string) $request->input('username')) &&
+            hash_equals($configuredPass, (string) $request->input('password'))) {
+            $request->session()->put('admin_logged_in', true);
+            $request->session()->put('admin_user', $configuredUser);
+            $request->session()->regenerate();
+
+            return redirect()->intended(route('admin.dashboard'))
+                ->with('success', 'Selamat datang di Pusat Komando BaliGuard.');
+        }
+
+        return back()->withInput()->with('error', 'Username atau password administrator tidak cocok.');
+    }
+
+    /**
+     * Process Admin Logout
+     */
+    public function logout(Request $request)
+    {
+        $request->session()->forget(['admin_logged_in', 'admin_user']);
+        $request->session()->regenerateToken();
+
+        return redirect()->route('admin.login')
+            ->with('success', 'Anda telah keluar dari sesi Pusat Komando.');
+    }
+
     /**
      * Dispatcher & Admin Overview Dashboard
      */
@@ -59,11 +114,15 @@ class AdminController extends Controller
     {
         $alert = SosAlert::findOrFail($id);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'status' => 'required|in:PENDING,DISPATCHED,IN_PROGRESS,RESOLVED,CANCELLED',
             'responder_unit' => 'nullable|string|max:150',
             'notes' => 'nullable|string|max:500',
         ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
         $alert->status = $request->status;
         if ($request->filled('responder_unit')) {
@@ -126,12 +185,16 @@ class AdminController extends Controller
     {
         $incident = IncidentReport::findOrFail($id);
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'status' => 'required|in:SUBMITTED,UNDER_INVESTIGATION,IN_ACTION,RESOLVED,REJECTED',
             'priority' => 'required|in:LOW,MEDIUM,HIGH,CRITICAL',
             'assigned_agency' => 'nullable|string|max:150',
             'officer_notes' => 'nullable|string|max:1000',
         ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
         $incident->update([
             'status' => $request->status,

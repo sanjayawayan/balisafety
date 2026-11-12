@@ -36,6 +36,9 @@ RUN setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp \
 ENV PORT=80 \
     APP_ENV=production \
     APP_DEBUG=false \
+    APP_KEY=base64:eZg2Q8fP9rW1vX4yZ8q0mK3lO6pT2wS5vY8uI1oN4m0= \
+    ADMIN_USERNAME=admin \
+    ADMIN_PASSWORD=baliguard2026 \
     LOG_CHANNEL=stderr \
     CACHE_STORE=array \
     SESSION_DRIVER=cookie \
@@ -46,4 +49,4 @@ ENV PORT=80 \
 
 USER www-data
 
-CMD ["sh", "-c", "touch \"$DB_DATABASE\" && php artisan migrate --force && exec frankenphp run --config /etc/frankenphp/Caddyfile"]
+CMD ["sh", "-c", "touch \"$DB_DATABASE\" && php artisan migrate --force && php artisan db:seed --force && exec frankenphp run --config /etc/frankenphp/Caddyfile"]

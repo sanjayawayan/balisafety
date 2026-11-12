@@ -9,7 +9,28 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => (function () {
+                $db = env('DB_DATABASE');
+                if (empty($db)) {
+                    $path = database_path('database.sqlite');
+                } elseif ($db === ':memory:') {
+                    return ':memory:';
+                } elseif (!str_starts_with($db, '/') && !preg_match('/^[A-Za-z]:[\\\\\/]/', $db)) {
+                    $path = base_path($db);
+                } else {
+                    $path = $db;
+                }
+
+                if (!file_exists($path) && $path !== ':memory:') {
+                    $dir = dirname($path);
+                    if (!is_dir($dir)) {
+                        @mkdir($dir, 0755, true);
+                    }
+                    @touch($path);
+                }
+
+                return $path;
+            })(),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],

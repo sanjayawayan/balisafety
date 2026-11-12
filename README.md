@@ -81,8 +81,9 @@ Untuk menghubungkan Chatbot langsung ke Google Gemini:
 - **Portal Wisatawan:** `http://127.0.0.1:8000/`
 - **Peta Keamanan:** `http://127.0.0.1:8000/map`
 - **Formulir Lapor Insiden:** `http://127.0.0.1:8000/report`
-- **Lacak Laporan:** `http://127.0.0.1:8000/track/BG-26-9F3A7C12D4B65E81`
+- **Lacak Laporan:** `http://127.0.0.1:8000/track/BG-26-8841A`
 - **Tata Tertib & Do's & Don'ts:** `http://127.0.0.1:8000/guidelines`
+- **Login Petugas / Dispatcher:** `http://127.0.0.1:8000/admin/login` (Default: `admin` / `baliguard2026`)
 - **Portal Dispatcher / Petugas:** `http://127.0.0.1:8000/admin`
 - **Monitor SOS Live:** `http://127.0.0.1:8000/admin/sos`
 - **Manajemen Insiden:** `http://127.0.0.1:8000/admin/incidents`
@@ -141,16 +142,17 @@ balisafety/
 
 ## Deploy ke Vercel
 
-Proyek ini memakai container Vercel dengan FrankenPHP dan PHP 8.4. Runtime container Vercel masih Beta. Untuk demo, database SQLite sementara dibuat di `/tmp` dan dimigrasikan saat container mulai. Data hanya ada pada instance tersebut dan hilang saat instance dihentikan atau diganti; database tidak dibagi antar-instance.
+Proyek ini memakai container Vercel dengan FrankenPHP dan PHP 8.4 (`vercel.json` dengan `runtime: container`). Untuk demo, database SQLite dibuat otomatis di `/tmp` dan dimigrasikan serta di-seed saat container mulai.
 
 1. Push repository ke GitHub, lalu import repository tersebut ke Vercel dengan root directory proyek ini.
-2. Tambahkan environment variables berikut di Vercel:
-  - `APP_KEY`: hasil `php artisan key:generate --show`; simpan hanya di Vercel.
-  - `APP_URL`: URL deployment produksi.
-  - `ADMIN_USERNAME` dan `ADMIN_PASSWORD` untuk Basic Auth pada `/admin`; gunakan password kuat.
-  - `GEMINI_API_KEY` jika chatbot akan memakai Gemini.
-3. Deploy dari Vercel dan periksa endpoint `/up`. Fitur upload lampiran tidak tersedia.
+2. Tambahkan environment variables berikut di Vercel (opsional, sudah ada nilai bawaan yang aman):
+  - `APP_KEY`: kunci enkripsi aplikasi (default fallback telah tersedia di Dockerfile).
+  - `APP_URL`: URL deployment produksi Vercel Anda.
+  - `ADMIN_USERNAME` dan `ADMIN_PASSWORD`: kredensial akses Pusat Komando `/admin` (default: `admin` / `baliguard2026`).
+  - `GEMINI_API_KEY`: API Key Gemini Anda jika ingin menggunakan respons live AI.
+3. Deploy dari Vercel dan periksa endpoint `/up`.
+4. Buka `/admin/login` untuk masuk ke Pusat Komando menggunakan akun admin.
 
-Mode SQLite sementara ini hanya untuk demo/pratinjau. Jangan gunakan untuk laporan operasional karena data dapat hilang dan berbeda antar-instance.
+Mode SQLite sementara ini dirancang untuk demonstrasi dan evaluasi aplikasi terpadu.
 
-Jangan commit `.env`, `APP_KEY`, atau database SQLite lokal.
+Jangan commit file `.env` lokal ke git repository.
