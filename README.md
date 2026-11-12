@@ -1,112 +1,114 @@
-# BaliGuard - Integrated Bali Tourist Safety & Emergency Response System
+# BaliGuard - Sistem Keselamatan & Perlindungan Wisatawan Terpadu Bali
 
 ## Description
-**BaliGuard** is a comprehensive, mobile-first web platform engineered to protect, assist, and inform international and domestic tourists visiting Bali, Indonesia. Integrating real-time emergency dispatching, incident reporting, interactive safety geospatial mapping, and an intelligent safety assistant powered by **Google Gemini AI**, BaliGuard bridges the critical communication gap between tourists, the Tourist Police (*Polda Bali*), coastal lifeguards (*Balawista*), traditional village security (*Pecalang*), disaster mitigation agencies (*BPBD Bali*), and healthcare facilities.
+**BaliGuard** adalah platform web responsif terpadu (*mobile-first*) yang dirancang khusus untuk memperkuat keamanan, keselamatan, dan kenyamanan wisatawan mancanegara maupun nusantara selama berlibur di Pulau Bali. 
 
-Inspired by regional safety governance initiatives and Bali Provincial Regulation (*Perda*) No. 2/2024, BaliGuard provides a unified command-and-response ecosystem that preserves tourist well-being and upholds the cultural sanctity of the Island of the Gods.
+Mengintegrasikan tombol darurat sinyal SOS instan, formulir pelaporan insiden daring dengan pelacakan *real-time*, peta keselamatan interaktif fasilitas vital, serta asisten keselamatan cerdas berbasis **Google Gemini AI**, BaliGuard menjembatani kesenjangan koordinasi dan komunikasi cepat antara wisatawan dengan berbagai instansi garis depan: Polisi Pariwisata (*Polda Bali*), Badan Penyelamat Wisata Tirta (*Balawista*), Badan Penanggulangan Bencana Daerah (*BPBD Bali*), Satuan Keamanan Adat (*Pecalang*), dan jejaring fasilitas kesehatan rujukan internasional di Bali.
+
+Platform ini dikembangkan merujuk pada tata kelola keamanan pariwisata daerah serta Peraturan Daerah (Perda) Provinsi Bali No. 2 Tahun 2024 tentang Tata Kelola Kepariwisataan Bali.
 
 ---
 
 ## Problem & Target User
 
-### The Problems
-1. **Scattered Emergency Contact Channels:** When tourists face critical situations (e.g., motorbike accidents, rabies exposure from monkey/dog bites, rip currents, scams, or stolen travel documents), they rarely know the localized emergency numbers or how to convey their coordinates accurately.
-2. **Lack of Unified Multi-Agency Dispatch:** First responders—such as Tourist Police, Balawista lifeguards, local hospital ambulances, and customary *Pecalang*—often operate in silos without a centralized operational feed.
-3. **Language & Cultural Etiquette Barriers:** Unintentional violations of sacred temple norms (*cuntaka* / dress codes) and vulnerability to unauthorized money changers frequently arise due to fragmented advisory channels.
-4. **Opaque Case Resolution:** Tourists filing police or security reports typically have no way to monitor the live investigation progress once they leave the scene.
+### Permasalahan yang Dihadapi (Problem)
+1. **Saluran Kontak Darurat yang Terpecah-pecah:** Saat mengalami situasi genting (kecelakaan lalu lintas sewa motor, gigitan hewan penular rabies seperti anjing/kera, arus pecah laut *rip current*, kehilangan dokumen paspor, penipuan valuta asing, atau tindak kriminalitas), wisatawan kerap bingung menentukan nomor darurat yang tepat serta kesulitan memberikan titik lokasi koordinat mereka secara akurat.
+2. **Ketiadaan Sistem Dispatcher Terpadu Lintas Instansi:** Unit penanggap pertama di Bali (Polisi Pariwisata, Balawista penjaga pantai, unit ambulans rumah sakit, dan Pecalang satgas desa adat) beroperasi di pos masing-masing tanpa satu sistem koordinasi pelacakan tiket darurat terpusat.
+3. **Kendala Bahasa & Ketidaktahuan Tata Krama Budaya:** Pelanggaran norma kesucian kawasan Pura (*cuntaka*, busana kain kamen) serta risiko penipuan di *money changer* tanpa izin Bank Indonesia kerap terjadi akibat kurangnya media edukasi interaktif yang ramah wisatawan.
+4. **Minimnya Transparansi Perkembangan Kasus:** Wisatawan yang melapor sering kali tidak mengetahui apakah laporannya telah ditindaklanjuti atau instansi mana yang sedang bergerak ke tempat kejadian perkara (TKP).
 
-### Target Users
-- **International & Domestic Tourists:** Travelers exploring Bali who require instant emergency assistance, incident reporting with tracking, safety maps, cultural etiquette guidance, and 24/7 AI advisory.
-- **Dispatchers & Emergency Responders:** Field officers, Tourist Police officers (*Polisi Pariwisata Polda Bali*), *Balawista* lifeguards, *BPBD Bali* personnel, and *Pecalang* monitoring live SOS alerts and managing incident reports.
-- **Tourism Boards & Local Authorities:** Government stakeholders overseeing regional risk mitigation, BMKG early warning broadcasts, and tourist satisfaction.
+### Pengguna Sasaran (Target User)
+- **Wisatawan Mancanegara & Domestik:** Pengguna utama yang memerlukan akses tombol darurat cepat (SOS), pelaporan insiden, pelacakan berkas aduan, peta fasilitas kesehatan & keamanan, serta konsultasi keselamatan 24 jam dengan AI multibahasa.
+- **Petugas Dispatcher & Tim Reaksi Cepat (Pusdalops):** Petugas piket terpadu, Polisi Pariwisata, petugas Balawista, BPBD, dan Satgas Adat Pecalang yang mengelola panggilan darurat masuk dan memperbarui status penanganan laporan.
+- **Dinas Pariwisata & Pemangku Kepentingan Daerah:** Otoritas pemerintah daerah untuk pemantauan tren keamanan pariwisata dan penyebaran peringatan dini BMKG.
 
 ---
 
 ## Key Features
 
-### 1. 🚨 One-Tap 24/7 Panic SOS Button
-- **Automatic GPS Satellite Detection:** Acquires precise latitude and longitude directly through the browser Geolocation API.
-- **Emergency Categorization:** Instant selection between Medical/Ambulance, Crime/Police, Ocean Rescue/SAR (*Balawista*), Natural Disaster, and Harassment.
-- **Instant Emergency Ticket Generation:** Generates unique tracking tickets (e.g., `SOS-20261112-9A12`) routed to the Command Center.
-- **Direct Hotline Fallback:** Rapid one-tap dialers for 112 (National Emergency), 110 (Police), 118/119 (Ambulance), 115 (BASARNAS), and Tourist Police (+62 361 224111).
+### 1. 🚨 Tombol Darurat Cepat 24/7 (Panic SOS Button)
+- **Deteksi Koordinat Satelit Otomatis:** Mendeteksi posisi lintang (*latitude*) dan bujur (*longitude*) pengguna secara akurat melalui browser Geolocation API tanpa perlu pengetikan manual.
+- **Kategori Darurat Lengkap:** Pilihan satu ketukan untuk Darurat Medis/Ambulans, Kriminal/Polisi, Penyelamatan Laut/SAR (Balawista), Bencana Alam, dan Pelecehan.
+- **Tiket Sinyal Darurat Unik:** Menerbitkan nomor tiket darurat instan (cth: `SOS-20261112-9A12`) yang langsung masuk ke radar pemantauan Pusat Komando.
+- **Panggilan Satu Ketukan (Direct Hotlines):** Akses cepat langsung menelepon 112 (Bebas Pulsa), 110 (Polisi), 118/119 (Ambulans), 115 (BASARNAS), dan Call Center Tourist Police Polda Bali (`+62 361 224111`).
 
-### 2. 📋 Structured Incident Reporting & 4-Stage Live Tracking
-- **Online Complaint Filing (`/report`):** Guided form capturing identity documents (KTP/Passport), regency, incident category, timestamp, narrative, and automatic GPS coordinate lock.
-- **Unique Tracking Code:** Issues a reference code (e.g., `BG-26-8841A`).
-- **Live 4-Stage Progress Timeline (`/track/{code}`):**
+### 2. 📋 Formulir Pengaduan Insiden & Pelacakan Live 4 Tahap
+- **Formulir Pengaduan Terstruktur (`/report`):** Pengisian data identitas (KTP/Paspor), kabupaten kejadian, kategori insiden, waktu kronologi, deskripsi terperinci, dan tombol kunci koordinat GPS otomatis.
+- **Kode Pelacakan Unik:** Menerbitkan kode pelacakan resmi (cth: `BG-26-8841A`).
+- **Timeline Progres Live 4 Tahap (`/track/{code}`):**
   1. *Laporan Masuk (Submitted)* &rarr; 2. *Verifikasi Berkas (Under Investigation)* &rarr; 3. *Tindakan Lapangan (In Action)* &rarr; 4. *Selesai Ditangani (Resolved)*.
-- **Official Transparency:** Displays assigned enforcement agencies (e.g., *Polsek Kuta Utara & Balawista*) and ongoing field officer update notes.
+- **Transparansi Penanganan:** Menampilkan instansi penanggung jawab yang ditugaskan (cth: *Polsek Kuta Utara & Balawista*) serta catatan resmi perkembangan penyelidikan petugas lapangan.
 
-### 3. 🤖 Multilingual Safety Chatbot Powered by Google Gemini AI
-- **Official Google Gemini Integration:** Powered by `gemini-3.5-flash-lite` with specialized safety system grounding.
-- **Deep Bali Safety Knowledge Base:** Pre-grounded with rabies Anti-Rabies Vaccine (VAR) referral centers (RSUP Prof. Ngoerah/Sanglah, BIMC, Siloam), temple customs (Perda No. 2/2024), ocean rip current warnings, certified money changer rules, and vehicle rental laws.
-- **Automatic Multilingual Translation:** Answers seamlessly in Indonesian, English, Russian, Mandarin, German, French, and Japanese.
-- **Offline / Zero-Key Fallback Simulator:** If an API key is absent or offline, an embedded heuristic intent parser ensures tourists still receive instant, verified safety instructions.
+### 3. 🤖 Chatbot AI Keselamatan Terpadu Google Gemini
+- **Ditenagai Google Gemini AI:** Memanfaatkan model resmi `gemini-3.5-flash-lite` melalui antarmuka REST API Google AI Studio.
+- **Knowledge Base Khusus Keselamatan Bali:** Dilengkapi pemahaman mendalam mengenai tata tertib kawasan Pura (Perda Bali No. 2/2024), protokol penanganan gigitan anjing/kera dan faskes rujukan Vaksin Anti Rabies / VAR (RSUP Sanglah, BIMC, Siloam), zona bahaya arus pecah (*rip current*), aturan legal sewa sepeda motor & helm SNI, dan ciri *money changer* resmi berizin Bank Indonesia.
+- **Multibahasa Otomatis:** Merespons secara luwes dalam Bahasa Indonesia, Inggris, Rusia, Mandarin, Jerman, Prancis, dan bahasa internasional lainnya.
+- **Simulator Cerdas Tanpa Kuota / Offline (Fallback):** Jika API key tidak diisi atau terjadi gangguan internet, sistem otomatis beralih ke pencocok maksud heuristik (*intent matcher*) lokal berpengetahuan Bali tanpa menimbulkan error.
 
-### 4. 🗺️ Interactive Geospatial Safety & Facility Map (`/map`)
-- **Leaflet.js & OpenStreetMap:** Lightweight, responsive interactive map covering all 9 regencies of Bali.
-- **Categorized POIs:** International hospitals, rabies vaccine centers, 24/7 Tourist Police posts, Balawista lifeguard towers, and high-hazard ocean wave zones (e.g., Kelingking Beach, Double Six Seminyak).
-- **User Location Geonavigation:** One-click device geolocation centering with interactive facility markers.
+### 4. 🗺️ Peta Interaktif Fasilitas Keamanan & Pos Vital (`/map`)
+- **Berbasis Leaflet.js & OpenStreetMap:** Ringan, interaktif, dan mulus dibuka pada smartphone wisatawan.
+- **Titik Fasilitas Vital 9 Kabupaten:** Menampilkan Rumah Sakit Standar Internasional & Faskes Rujukan Rabies, Pos Polisi 24 Jam & Polisi Pariwisata, Menara Pengawas Lifeguard Balawista, serta Zona Rawan Ombak (Pantai Kelingking Nusa Penida, Double Six Seminyak).
+- **Fitur Lokasi Pengguna:** Tombol penunjuk posisi pengguna saat ini secara instan di atas peta.
 
-### 5. 🛕 Official Cultural Etiquette & Do's & Don'ts Guide (`/guidelines`)
-- Legal references to Bali Provincial Regulation (*Perda*) No. 2/2024.
-- Sacred temple attire instructions (sarong/kamen) and biological restrictions (*cuntaka*).
-- Safe road travel protocols: mandatory SNI helmet standards, international driving licenses, and respectful conduct.
-- Authorized Money Changer verification guidelines certified by Bank Indonesia.
+### 5. 🛕 Panduan Resmi Tata Krama & Do's and Don'ts (`/guidelines`)
+- Rangkuman aturan resmi Perda Provinsi Bali No. 2 Tahun 2024.
+- Etika busana adat kain kamen/sarong di tempat suci serta larangan masuk saat masa berduka/haid (*cuntaka*).
+- Tata tertib berlalu lintas: kewajiban helm SNI, SIM Internasional, larangan berkendara tanpa pakaian pantas.
+- Kiat aman bertransaksi valas di *Authorized Money Changer* berlogo resmi Bank Indonesia (PVA Berizin).
 
-### 6. ⚠️ Early Warning System (EWS Broadcasts)
-- Disseminates meteorological warnings from BMKG Wilayah III Denpasar, high ocean tide/rip current advisories, extreme weather notices, and volcanic status alerts across the homepage.
+### 6. ⚠️ Peringatan Dini Bencana & Cuaca Ekstrem (Early Warning System)
+- Siaran informasi peringatan gelombang tinggi laut BMKG Wilayah III Denpasar, imbauan cuaca ekstrem jalan perbukitan, aktivitas vulkanik, dan rekayasa lalu lintas pada beranda portal.
 
-### 7. 🛡️ Command Center & Dispatcher Operations Dashboard (`/admin`)
-- **Executive Metrics:** Real-time metrics tracking Active SOS signals, Pending Inquiries, and Resolved Cases.
-- **Live SOS Radar:** Direct links opening coordinates in Google Maps with responder assignment controls.
-- **Incident Management:** Filter by regency, status, or search term; assign designated units; and publish status progression notes.
-- **Warning Publisher:** Instant deployment of regional hazard alerts.
-- **Dedicated Admin Authentication (`/admin/login`):** Session-authenticated access with logout functionality and proxy header verification.
+### 7. 🛡️ Pusat Komando & Dashboard Dispatcher Petugas (`/admin`)
+- **Metrik Statistik Real-Time:** Total Kasus, Kasus Menunggu, Kasus Tuntas, dan Sinyal SOS Aktif yang membutuhkan respons.
+- **Radar Pantauan SOS Live:** Tautan langsung membuka titik koordinat di Google Maps serta form penugasan unit reaksi cepat.
+- **Pengelolaan Berkas Insiden:** Filter status dan wilayah kabupaten, penugasan instansi mitra, dan pengisian catatan hasil tindakan lapangan.
+- **Publikasi Peringatan BMKG:** Penambahan dan penonaktifan siaran bahaya secara langsung.
+- **Otentikasi Aman Petugas (`/admin/login`):** Dilengkapi sistem login berbasis sesi, proteksi reverse proxy HTTPS, dan tombol logout.
 
 ---
 
 ## Tech Stack
 
-| Layer | Technologies |
+| Komponen | Teknologi yang Digunakan |
 |---|---|
 | **Backend Framework** | PHP 8.4, Laravel 11 |
 | **Web Server & Runtime** | FrankenPHP (Caddy Go Web Server), PHP-FPM / Worker Mode |
-| **Database & ORM** | SQLite (with auto-migrating, idempotent seeders; MySQL-ready Eloquent ORM) |
-| **Frontend & UI** | Blade Templating Engine, Tailwind CSS, Font Awesome 6 Icons |
-| **Mapping & GIS** | Leaflet.js, OpenStreetMap Cartography, HTML5 Geolocation API |
-| **Artificial Intelligence** | Google Gemini API (`gemini-3.5-flash-lite`) via Google AI Studio |
-| **Containerization** | Docker (Multi-stage build, non-root `www-data` execution) |
-| **Cloud Hosting & CI/CD** | Vercel (Fluid Compute OCI Container Runtime), GitHub Actions / Webhooks |
+| **Database & ORM** | SQLite (dilengkapi migrasi otomatis & seeder idempotent; siap MySQL) |
+| **Frontend & Tampilan** | Blade Templating Engine, Tailwind CSS, Font Awesome 6 Icons |
+| **Peta & Geolokasi** | Leaflet.js, OpenStreetMap Cartography, HTML5 Geolocation API |
+| **Kecerdasan Buatan (AI)** | Google Gemini API (`gemini-3.5-flash-lite`) via Google AI Studio |
+| **Kontainerisasi** | Docker (Multi-stage build OCI compliant, eksekusi non-root `www-data`) |
+| **Cloud Hosting & CI/CD** | Vercel (Fluid Compute OCI Container Runtime), GitHub Integration |
 
 ---
 
 ## AI Implementation
 
-BaliGuard embeds **Google Gemini** as an omnipresent safety copilot for tourists navigating unfamiliar environments:
+BaliGuard mengintegrasikan **Google Gemini AI** sebagai pendamping keselamatan virtual wisatawan selama 24 jam penuh:
 
 ```
-[User Query in Chat Widget]
-            │
-            ▼
-[ChatbotController & GeminiService]
-            │
-            ├─► 1. Grounding Prompt Injection
-            │      - Perda No. 2/2024 (Sacred sites, dress codes, cuntaka rules)
-            │      - Rabies Treatment Protocol (VAR centers: RS Sanglah, BIMC, Siloam)
-            │      - Ocean Safety (Rip currents, Balawista red flag compliance)
-            │      - Official Hotlines (112, 110, 115, Tourist Police)
-            │      - Authorized Money Changer criteria (Bank Indonesia badge)
-            │
-            ├─► 2. API Dispatch to Google AI Studio (gemini-3.5-flash-lite)
-            │
-            └─► 3. Intelligent Fallback Heuristic Matcher
-                   - Seamlessly fires if GEMINI_API_KEY is not set or network fails
-                   - Zero downtime, high accuracy localized answers
+[Pengguna Mengirim Pesan di Widget Chatbot]
+                       │
+                       ▼
+       [ChatbotController & GeminiService]
+                       │
+                       ├─► 1. Domain Grounding Prompt Injection
+                       │      - Aturan Perda No. 2/2024 (Kawasan suci Pura, tata busana, larangan cuntaka)
+                       │      - Protokol Penanganan Gigitan Hewan / Rabies (Faskes VAR: Sanglah, BIMC, Siloam)
+                       │      - Keselamatan Laut (Arus rip current, kepatuhan bendera merah Balawista)
+                       │      - Nomor Darurat Resmi (112, 110, 115, Balawista, Tourist Police)
+                       │      - Ketentuan Money Changer Berizin Bank Indonesia (Logo PVA)
+                       │
+                       ├─► 2. Komunikasi REST API ke Google AI Studio (gemini-3.5-flash-lite)
+                       │
+                       └─► 3. Fallback Heuristik Lokal Cerdas (Jika Offline / Tanpa API Key)
+                              - Otomatis aktif saat koneksi API terputus atau kunci belum dipasang
+                              - Menjamin layanan tetap aktif tanpa downtime dan memberikan jawaban akurat
 ```
 
-- **Prompt Engineering & Safety Guardrails:** System prompts restrict the model to safety, health, regulatory, and emergency advisory topics, explicitly instructing tourists in acute distress to call `112` or trigger the red SOS button.
-- **Session Continuity:** Maintains recent conversation history to provide contextual, multi-turn follow-ups.
+- **Safety Guardrails & Boundaries:** Chatbot dilengkapi instruksi sistem ketat untuk hanya merespons topik keamanan, kesehatan, tata tertib, dan navigasi darurat di Bali. Pada kondisi kritis darurat medis/kejahatan aktif, asisten secara eksplisit memandu wisatawan untuk menekan tombol merah SOS atau menghubungi nomor 112.
+- **Manajemen Riwayat Sesi:** Mempertahankan histori percakapan terkini dalam sesi agar dialog tanya-jawab berjalan secara kontekstual dan natural.
 
 ---
 
@@ -114,12 +116,12 @@ BaliGuard embeds **Google Gemini** as an omnipresent safety copilot for tourists
 
 ```mermaid
 flowchart TD
-    subgraph Clients["Tourist & Admin Clients (Mobile / Desktop)"]
-        T["Tourist Browser / PWA"]
-        A["Admin Dispatcher / Pusdalops"]
+    subgraph Clients["Pengguna & Admin (Smartphone / Laptop)"]
+        T["Wisatawan (Browser / PWA)"]
+        A["Petugas Dispatcher (Pusat Komando)"]
     end
 
-    subgraph Edge["Hosting & Ingress (Vercel)"]
+    subgraph Edge["Jaringan Hosting (Vercel)"]
         V["Vercel Edge Network / Reverse Proxy (HTTPS)"]
     end
 
@@ -127,27 +129,27 @@ flowchart TD
         Caddy["FrankenPHP / Caddy Server (:80)"]
         Kernel["Laravel 11 HTTP Kernel & TrustProxies"]
         
-        subgraph Controllers["Application Layer"]
-            HomeCtrl["HomeController (Portal, Maps, Guidelines)"]
-            SosCtrl["SosController (SOS API & GPS Geolocation)"]
-            IncCtrl["IncidentController (Reporting & Tracking)"]
+        subgraph Controllers["Lapisan Logika Aplikasi"]
+            HomeCtrl["HomeController (Beranda, Peta, Panduan Perda)"]
+            SosCtrl["SosController (API SOS & Geolokasi Satelit)"]
+            IncCtrl["IncidentController (Pelaporan Insiden & Tracking)"]
             ChatCtrl["ChatbotController & GeminiService"]
             AdmCtrl["AdminController & WarningController"]
         end
 
-        subgraph Storage["Data Store"]
-            SQLite[("SQLite Database (/tmp/balisafety.sqlite)")]
+        subgraph Storage["Penyimpanan Data"]
+            SQLite[("Database SQLite (/tmp/balisafety.sqlite)")]
         end
     end
 
-    subgraph External["External Services"]
+    subgraph External["Layanan Pihak Ketiga & Integrasi Eksternal"]
         Gemini["Google Gemini AI REST API"]
-        OSM["OpenStreetMap / Leaflet Tiles"]
-        Hotlines["Telephony Hotlines (112, 110, Balawista)"]
+        OSM["Tile Peta OpenStreetMap & Leaflet"]
+        Hotlines["Hotline Darurat Telepon (112, 110, Balawista)"]
     end
 
-    T -->|"HTTPS Requests"| V
-    A -->|"HTTPS Requests"| V
+    T -->|"Permintaan Akses HTTPS"| V
+    A -->|"Akses Pusat Komando HTTPS"| V
     V -->|"Port 80 Ingress"| Caddy
     Caddy --> Kernel
     Kernel --> HomeCtrl
@@ -156,108 +158,108 @@ flowchart TD
     Kernel --> ChatCtrl
     Kernel --> AdmCtrl
 
-    SosCtrl <-->|"Read / Write Sockets & Tickets"| SQLite
-    IncCtrl <-->|"Read / Write Reports & Status"| SQLite
-    AdmCtrl <-->|"Manage Records & Warnings"| SQLite
-    ChatCtrl <-->|"Prompt & Response"| Gemini
-    HomeCtrl -->|"Render Map POIs"| OSM
-    SosCtrl -.->|"Emergency Dial Links"| Hotlines
+    SosCtrl <-->|"Simpan / Baca Tiket SOS"| SQLite
+    IncCtrl <-->|"Simpan / Perbarui Status Insiden"| SQLite
+    AdmCtrl <-->|"Kelola Kasus & Publikasi Peringatan"| SQLite
+    ChatCtrl <-->|"Prompt & Respons AI Multibahasa"| Gemini
+    HomeCtrl -->|"Render Titik Koordinat Peta"| OSM
+    SosCtrl -.->|"Tautan Panggilan Cepat"| Hotlines
 ```
 
 ---
 
 ## Installation / Run Instructions
 
-### Prerequisites
-- **PHP:** 8.2 or higher (PHP 8.3 / 8.4 recommended)
-- **Composer:** 2.x
-- **Extensions required:** `pdo_sqlite`, `curl`, `mbstring`, `intl`, `zip`
+### Prasyarat Sistem
+- **PHP:** Versi 8.2 atau lebih baru (PHP 8.3 / 8.4 direkomendasikan)
+- **Composer:** Versi 2.x
+- **Ekstensi PHP Aktif:** `pdo_sqlite`, `curl`, `mbstring`, `intl`, `zip`
 
-### Local Development Setup
+### Langkah Menjalankan di Lingkungan Lokal (Localhost)
 
-1. **Clone the repository:**
+1. **Clone repository dari GitHub:**
    ```bash
    git clone https://github.com/sanjayawayan/balisafety.git
    cd balisafety
    ```
 
-2. **Install PHP dependencies:**
+2. **Pasang dependensi pustaka PHP:**
    ```bash
    composer install
    ```
 
-3. **Configure Environment File:**
+3. **Konfigurasi file environment (`.env`):**
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-4. **Prepare Database:**
+4. **Siapkan database SQLite dan data simulasi:**
    ```bash
    touch database/database.sqlite
    php artisan migrate --seed
    ```
 
-5. **Configure Google Gemini AI (Optional):**
-   Obtain a free API Key from [Google AI Studio](https://aistudio.google.com/) and paste it in `.env`:
+5. **Konfigurasi Google Gemini AI (Opsional):**
+   Dapatkan API Key gratis di [Google AI Studio](https://aistudio.google.com/) lalu masukkan ke dalam file `.env`:
    ```env
-   GEMINI_API_KEY=AIzaSy...your_gemini_api_key...
+   GEMINI_API_KEY=AIzaSy...masukkan_api_key_gemini_anda...
    GEMINI_MODEL=gemini-3.5-flash-lite
    ```
-   *(If omitted, BaliGuard will seamlessly operate using its built-in local knowledge base simulator).*
+   *(Jika dikosongkan, fitur chatbot tetap berfungsi penuh dengan simulator basis pengetahuan lokal BaliGuard tanpa error).*
 
-6. **Start the Local Development Server:**
+6. **Jalankan server aplikasi lokal:**
    ```bash
    php artisan serve
    ```
-   Open your browser at: **`http://127.0.0.1:8000`**
+   Buka peramban pada alamat: **`http://127.0.0.1:8000`**
 
 ---
 
 ## Deployment URL
 
-- **Production URL:** [https://balisafety.vercel.app](https://balisafety.vercel.app)
-- **Incident Reporting:** [https://balisafety.vercel.app/report](https://balisafety.vercel.app/report)
-- **Live Incident Tracking Sample:** [https://balisafety.vercel.app/track/BG-26-8841A](https://balisafety.vercel.app/track/BG-26-8841A)
-- **Interactive Safety Map:** [https://balisafety.vercel.app/map](https://balisafety.vercel.app/map)
-- **Cultural Guidelines (Do's & Don'ts):** [https://balisafety.vercel.app/guidelines](https://balisafety.vercel.app/guidelines)
-- **Admin Command Center:** [https://balisafety.vercel.app/admin/login](https://balisafety.vercel.app/admin/login)
+- **URL Aplikasi Utama (Produksi):** [https://balisafety.vercel.app](https://balisafety.vercel.app)
+- **Formulir Lapor Insiden:** [https://balisafety.vercel.app/report](https://balisafety.vercel.app/report)
+- **Contoh Pelacakan Kasus (Live):** [https://balisafety.vercel.app/track/BG-26-8841A](https://balisafety.vercel.app/track/BG-26-8841A)
+- **Peta Interaktif Keamanan:** [https://balisafety.vercel.app/map](https://balisafety.vercel.app/map)
+- **Panduan Tata Tertib & Perda:** [https://balisafety.vercel.app/guidelines](https://balisafety.vercel.app/guidelines)
+- **Login Pusat Komando / Admin:** [https://balisafety.vercel.app/admin/login](https://balisafety.vercel.app/admin/login)
 
 ---
 
 ## Demo Account (jika diperlukan - jangan simpan password sensitif di public repo)
 
-For jury review and sandbox evaluation of the Command Center & Dispatcher Dashboard:
+Untuk keperluan penilaian juri dan evaluasi fitur Pusat Komando & Dispatcher:
 
-- **Login URL:** [https://balisafety.vercel.app/admin/login](https://balisafety.vercel.app/admin/login)
+- **Halaman Login:** [https://balisafety.vercel.app/admin/login](https://balisafety.vercel.app/admin/login)
 - **Username:** `admin`
 - **Password:** `baliguard2026`
-- **Assigned Role:** Petugas Piket Terpadu (Pusdalops BaliGuard Command Center)
+- **Peran Akun:** Petugas Piket Terpadu Pusdalops BaliGuard
 
 > [!NOTE]
-> In production environments, credentials can be overridden without code changes by setting the `ADMIN_USERNAME` and `ADMIN_PASSWORD` environment variables in the host settings.
+> Pada lingkungan produksi sesungguhnya, kredensial ini dapat diubah kapan saja secara aman tanpa mengubah kode program melalui variabel lingkungan `ADMIN_USERNAME` dan `ADMIN_PASSWORD` pada panel pengaturan hosting Vercel.
 
 ---
 
 ## Known Limitations
 
-1. **Ephemeral Container Storage:** The demo deployment runs on Vercel's container runtime with an ephemeral SQLite database located in `/tmp`. Database state resets across container rebuilds or instance recycles. For large-scale production, connection to a persistent managed database (e.g., Supabase PostgreSQL or PlanetScale MySQL) is recommended.
-2. **Client-Side Geolocation Permissions:** Automatic GPS locking relies on browser permission grants. When tourists decline location sharing, the system gracefully prompts for landmark descriptions.
-3. **Free-Tier AI Rate Limits:** The default Google Gemini free API tier is subject to standard RPM quotas; when limits are exceeded, BaliGuard falls back to the deterministic local knowledge engine to ensure uninterrupted safety guidance.
+1. **Penyimpanan Kontainer Ephemeral (Vercel Container):** Pada lingkungan demo Vercel, database SQLite berada di direktori `/tmp` yang bersifat *ephemeral* (reset saat kontainer di-*recycle* atau dibuat ulang). Untuk skala produksi masal dengan jutaan pengguna, disarankan menghubungkan ke penyedia database persisten terkelola (seperti Supabase PostgreSQL atau PlanetScale MySQL).
+2. **Izin Geolokasi Peramban:** Fitur kunci titik koordinat GPS otomatis bergantung pada persetujuan izin geolokasi pada peramban perangkat wisatawan. Apabila izin ditolak, sistem menyediakan pengisian patokan alamat manual.
+3. **Batas Kuota AI Gratis (Rate Limits):** Paket gratis Google Gemini API memiliki batasan frekuensi panggilan (*Rate Limits*). Ketika kuota API tercapai, sistem BaliGuard secara mulus mengalihkan respons ke mesin heuristik lokal agar panduan keselamatan wisatawan tidak terputus.
 
 ---
 
 ## Third-party Resources / Credits
 
-- **Google Gemini API:** Generative AI inference and multilingual natural language processing.
-- **Leaflet.js & OpenStreetMap:** Open-source interactive cartography and geospatial mapping tiles.
-- **Tailwind CSS & Font Awesome 6:** UI framework and vector iconography.
-- **FrankenPHP:** High-performance PHP application server written in Go by Kévin Dunglas.
-- **Dinas Pariwisata Provinsi Bali & Satpol PP Pariwisata:** Regulatory framework inspiration (*Perda No. 2/2024*).
-- **Balawista Badung, Polda Bali, & BMKG Denpasar:** Operational emergency protocols and real-world safety parameters.
+- **Google Gemini API:** Mesin kecerdasan buatan generatif dan pemrosesan bahasa alami multibahasa.
+- **Leaflet.js & OpenStreetMap:** Pustaka dan peta kartografi interaktif sumber terbuka (*open-source*).
+- **Tailwind CSS & Font Awesome 6:** Kerangka kerja tata letak antarmuka dan paket ikon vektor modern.
+- **FrankenPHP:** Server aplikasi web PHP modern berkinerja tinggi berbasis Go buatan Kévin Dunglas.
+- **Dinas Pariwisata Provinsi Bali & Satpol PP Pariwisata:** Rujukan kebijakan Perda Provinsi Bali No. 2 Tahun 2024.
+- **Balawista Badung, Polda Bali, & BMKG Wilayah III Denpasar:** Rujukan parameter keselamatan pesisir laut dan tanggap darurat kepolisian.
 
 ---
 
-## Team Member
+## Team Member 1. I Putu Nayaka Widhyadana, 2. I Wayan Karang Sanjaya
 1. **I Putu Nayaka Widhyadana**
 2. **I Wayan Karang Sanjaya**
